@@ -1,33 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.frt.govern.dao.AreaMapper" >
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.Area" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="province" property="province" jdbcType="VARCHAR" />
-    <result column="city" property="city" jdbcType="VARCHAR" />
-    <result column="countryside" property="countryside" jdbcType="VARCHAR" />
-    <result column="street" property="street" jdbcType="VARCHAR" />
-    <result column="village" property="village" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
-    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.frt.govern.dao.AreaMapper">
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.Area">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="countryside" jdbcType="VARCHAR" property="countryside" />
+    <result column="street" jdbcType="VARCHAR" property="street" />
+    <result column="village" jdbcType="VARCHAR" property="village" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, province, city, countryside, street, village, remark, creator_id, is_enable, 
     create_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gov_area
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gov_area
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.Area" >
+  <insert id="insert" parameterType="xyz.frt.govern.model.Area">
     insert into gov_area (id, province, city, 
       countryside, street, village, 
       remark, creator_id, is_enable, 
@@ -37,107 +37,107 @@
       #{remark,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, #{isEnable,jdbcType=INTEGER}, 
       #{createTime,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.Area" >
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.Area">
     insert into gov_area
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="province != null" >
+      <if test="province != null">
         province,
       </if>
-      <if test="city != null" >
+      <if test="city != null">
         city,
       </if>
-      <if test="countryside != null" >
+      <if test="countryside != null">
         countryside,
       </if>
-      <if test="street != null" >
+      <if test="street != null">
         street,
       </if>
-      <if test="village != null" >
+      <if test="village != null">
         village,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id,
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="province != null" >
+      <if test="province != null">
         #{province,jdbcType=VARCHAR},
       </if>
-      <if test="city != null" >
+      <if test="city != null">
         #{city,jdbcType=VARCHAR},
       </if>
-      <if test="countryside != null" >
+      <if test="countryside != null">
         #{countryside,jdbcType=VARCHAR},
       </if>
-      <if test="street != null" >
+      <if test="street != null">
         #{street,jdbcType=VARCHAR},
       </if>
-      <if test="village != null" >
+      <if test="village != null">
         #{village,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         #{creatorId,jdbcType=VARCHAR},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         #{isEnable,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.Area" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.Area">
     update gov_area
-    <set >
-      <if test="province != null" >
+    <set>
+      <if test="province != null">
         province = #{province,jdbcType=VARCHAR},
       </if>
-      <if test="city != null" >
+      <if test="city != null">
         city = #{city,jdbcType=VARCHAR},
       </if>
-      <if test="countryside != null" >
+      <if test="countryside != null">
         countryside = #{countryside,jdbcType=VARCHAR},
       </if>
-      <if test="street != null" >
+      <if test="street != null">
         street = #{street,jdbcType=VARCHAR},
       </if>
-      <if test="village != null" >
+      <if test="village != null">
         village = #{village,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id = #{creatorId,jdbcType=VARCHAR},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable = #{isEnable,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.Area" >
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.Area">
     update gov_area
     set province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},

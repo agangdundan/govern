@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.frt.govern.dao.AreaAnoticeMapper" >
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.AreaAnotice" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="pic" property="pic" jdbcType="VARCHAR" />
-    <result column="creator" property="creator" jdbcType="VARCHAR" />
-    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="INTEGER" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.frt.govern.dao.AreaAnoticeMapper">
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.AreaAnotice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, title, pic, creator, creator_id, create_time, content, is_enable, remark
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gov_area_anotice
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gov_area_anotice
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.AreaAnotice" >
+  <insert id="insert" parameterType="xyz.frt.govern.model.AreaAnotice">
     insert into gov_area_anotice (id, title, pic, 
       creator, creator_id, create_time, 
       content, is_enable, remark
@@ -35,98 +35,98 @@
       #{content,jdbcType=VARCHAR}, #{isEnable,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.AreaAnotice" >
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.AreaAnotice">
     insert into gov_area_anotice
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         title,
       </if>
-      <if test="pic != null" >
+      <if test="pic != null">
         pic,
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         creator,
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content,
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="pic != null" >
+      <if test="pic != null">
         #{pic,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         #{creatorId,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         #{isEnable,jdbcType=INTEGER},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.AreaAnotice" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.AreaAnotice">
     update gov_area_anotice
-    <set >
-      <if test="title != null" >
+    <set>
+      <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="pic != null" >
+      <if test="pic != null">
         pic = #{pic,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         creator = #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id = #{creatorId,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable = #{isEnable,jdbcType=INTEGER},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.AreaAnotice" >
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.AreaAnotice">
     update gov_area_anotice
     set title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},

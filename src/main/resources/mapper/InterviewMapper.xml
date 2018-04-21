@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.frt.govern.dao.InterviewMapper" >
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.Interview" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="relation_id" property="relationId" jdbcType="INTEGER" />
-    <result column="pics" property="pics" jdbcType="VARCHAR" />
-    <result column="view_type" property="viewType" jdbcType="INTEGER" />
-    <result column="person_status" property="personStatus" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="interviewer" property="interviewer" jdbcType="VARCHAR" />
-    <result column="interviewer_id" property="interviewerId" jdbcType="INTEGER" />
-    <result column="interview_date" property="interviewDate" jdbcType="INTEGER" />
-    <result column="interview_status" property="interviewStatus" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="INTEGER" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="creator" property="creator" jdbcType="VARCHAR" />
-    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
-    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.frt.govern.dao.InterviewMapper">
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.Interview">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="relation_id" jdbcType="INTEGER" property="relationId" />
+    <result column="pics" jdbcType="VARCHAR" property="pics" />
+    <result column="view_type" jdbcType="INTEGER" property="viewType" />
+    <result column="person_status" jdbcType="VARCHAR" property="personStatus" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="interviewer" jdbcType="VARCHAR" property="interviewer" />
+    <result column="interviewer_id" jdbcType="INTEGER" property="interviewerId" />
+    <result column="interview_date" jdbcType="INTEGER" property="interviewDate" />
+    <result column="interview_status" jdbcType="INTEGER" property="interviewStatus" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="is_enable" jdbcType="VARCHAR" property="isEnable" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, relation_id, pics, view_type, person_status, content, interviewer, interviewer_id, 
     interview_date, interview_status, create_time, remark, creator, creator_id, is_enable
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gov_interview
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gov_interview
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.Interview" >
+  <insert id="insert" parameterType="xyz.frt.govern.model.Interview">
     insert into gov_interview (id, relation_id, pics, 
       view_type, person_status, content, 
       interviewer, interviewer_id, interview_date, 
@@ -46,152 +46,152 @@
       #{creator,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{isEnable,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.Interview" >
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.Interview">
     insert into gov_interview
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="relationId != null" >
+      <if test="relationId != null">
         relation_id,
       </if>
-      <if test="pics != null" >
+      <if test="pics != null">
         pics,
       </if>
-      <if test="viewType != null" >
+      <if test="viewType != null">
         view_type,
       </if>
-      <if test="personStatus != null" >
+      <if test="personStatus != null">
         person_status,
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content,
       </if>
-      <if test="interviewer != null" >
+      <if test="interviewer != null">
         interviewer,
       </if>
-      <if test="interviewerId != null" >
+      <if test="interviewerId != null">
         interviewer_id,
       </if>
-      <if test="interviewDate != null" >
+      <if test="interviewDate != null">
         interview_date,
       </if>
-      <if test="interviewStatus != null" >
+      <if test="interviewStatus != null">
         interview_status,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         creator,
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id,
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="relationId != null" >
+      <if test="relationId != null">
         #{relationId,jdbcType=INTEGER},
       </if>
-      <if test="pics != null" >
+      <if test="pics != null">
         #{pics,jdbcType=VARCHAR},
       </if>
-      <if test="viewType != null" >
+      <if test="viewType != null">
         #{viewType,jdbcType=INTEGER},
       </if>
-      <if test="personStatus != null" >
+      <if test="personStatus != null">
         #{personStatus,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="interviewer != null" >
+      <if test="interviewer != null">
         #{interviewer,jdbcType=VARCHAR},
       </if>
-      <if test="interviewerId != null" >
+      <if test="interviewerId != null">
         #{interviewerId,jdbcType=INTEGER},
       </if>
-      <if test="interviewDate != null" >
+      <if test="interviewDate != null">
         #{interviewDate,jdbcType=INTEGER},
       </if>
-      <if test="interviewStatus != null" >
+      <if test="interviewStatus != null">
         #{interviewStatus,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         #{creatorId,jdbcType=INTEGER},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         #{isEnable,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.Interview" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.Interview">
     update gov_interview
-    <set >
-      <if test="relationId != null" >
+    <set>
+      <if test="relationId != null">
         relation_id = #{relationId,jdbcType=INTEGER},
       </if>
-      <if test="pics != null" >
+      <if test="pics != null">
         pics = #{pics,jdbcType=VARCHAR},
       </if>
-      <if test="viewType != null" >
+      <if test="viewType != null">
         view_type = #{viewType,jdbcType=INTEGER},
       </if>
-      <if test="personStatus != null" >
+      <if test="personStatus != null">
         person_status = #{personStatus,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="interviewer != null" >
+      <if test="interviewer != null">
         interviewer = #{interviewer,jdbcType=VARCHAR},
       </if>
-      <if test="interviewerId != null" >
+      <if test="interviewerId != null">
         interviewer_id = #{interviewerId,jdbcType=INTEGER},
       </if>
-      <if test="interviewDate != null" >
+      <if test="interviewDate != null">
         interview_date = #{interviewDate,jdbcType=INTEGER},
       </if>
-      <if test="interviewStatus != null" >
+      <if test="interviewStatus != null">
         interview_status = #{interviewStatus,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         creator = #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id = #{creatorId,jdbcType=INTEGER},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable = #{isEnable,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.Interview" >
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.Interview">
     update gov_interview
     set relation_id = #{relationId,jdbcType=INTEGER},
       pics = #{pics,jdbcType=VARCHAR},

@@ -1,45 +1,45 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.frt.govern.dao.DailyPatrolMapper" >
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.DailyPatrol" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="report_person" property="reportPerson" jdbcType="VARCHAR" />
-    <result column="report_person_id" property="reportPersonId" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="INTEGER" />
-    <result column="patrol_type" property="patrolType" jdbcType="INTEGER" />
-    <result column="classify" property="classify" jdbcType="INTEGER" />
-    <result column="place" property="place" jdbcType="VARCHAR" />
-    <result column="addr_gnote" property="addrGnote" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="pics" property="pics" jdbcType="VARCHAR" />
-    <result column="inspector" property="inspector" jdbcType="VARCHAR" />
-    <result column="inspect_time" property="inspectTime" jdbcType="INTEGER" />
-    <result column="result" property="result" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="level" property="level" jdbcType="INTEGER" />
-    <result column="complete_time" property="completeTime" jdbcType="INTEGER" />
-    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
-    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.frt.govern.dao.DailyPatrolMapper">
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.DailyPatrol">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="report_person" jdbcType="VARCHAR" property="reportPerson" />
+    <result column="report_person_id" jdbcType="INTEGER" property="reportPersonId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="patrol_type" jdbcType="INTEGER" property="patrolType" />
+    <result column="classify" jdbcType="INTEGER" property="classify" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="addr_gnote" jdbcType="VARCHAR" property="addrGnote" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="pics" jdbcType="VARCHAR" property="pics" />
+    <result column="inspector" jdbcType="VARCHAR" property="inspector" />
+    <result column="inspect_time" jdbcType="INTEGER" property="inspectTime" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="complete_time" jdbcType="INTEGER" property="completeTime" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="is_enable" jdbcType="VARCHAR" property="isEnable" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, report_person, report_person_id, title, create_time, patrol_type, classify, place, 
     addr_gnote, content, pics, inspector, inspect_time, result, status, type, level, 
     complete_time, creator_id, is_enable, remark
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gov_daily_patrol
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gov_daily_patrol
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.DailyPatrol" >
+  <insert id="insert" parameterType="xyz.frt.govern.model.DailyPatrol">
     insert into gov_daily_patrol (id, report_person, report_person_id, 
       title, create_time, patrol_type, 
       classify, place, addr_gnote, 
@@ -57,206 +57,206 @@
       #{creatorId,jdbcType=VARCHAR}, #{isEnable,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.DailyPatrol" >
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.DailyPatrol">
     insert into gov_daily_patrol
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="reportPerson != null" >
+      <if test="reportPerson != null">
         report_person,
       </if>
-      <if test="reportPersonId != null" >
+      <if test="reportPersonId != null">
         report_person_id,
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         title,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="patrolType != null" >
+      <if test="patrolType != null">
         patrol_type,
       </if>
-      <if test="classify != null" >
+      <if test="classify != null">
         classify,
       </if>
-      <if test="place != null" >
+      <if test="place != null">
         place,
       </if>
-      <if test="addrGnote != null" >
+      <if test="addrGnote != null">
         addr_gnote,
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content,
       </if>
-      <if test="pics != null" >
+      <if test="pics != null">
         pics,
       </if>
-      <if test="inspector != null" >
+      <if test="inspector != null">
         inspector,
       </if>
-      <if test="inspectTime != null" >
+      <if test="inspectTime != null">
         inspect_time,
       </if>
-      <if test="result != null" >
+      <if test="result != null">
         result,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type,
       </if>
-      <if test="level != null" >
+      <if test="level != null">
         level,
       </if>
-      <if test="completeTime != null" >
+      <if test="completeTime != null">
         complete_time,
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id,
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="reportPerson != null" >
+      <if test="reportPerson != null">
         #{reportPerson,jdbcType=VARCHAR},
       </if>
-      <if test="reportPersonId != null" >
+      <if test="reportPersonId != null">
         #{reportPersonId,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="patrolType != null" >
+      <if test="patrolType != null">
         #{patrolType,jdbcType=INTEGER},
       </if>
-      <if test="classify != null" >
+      <if test="classify != null">
         #{classify,jdbcType=INTEGER},
       </if>
-      <if test="place != null" >
+      <if test="place != null">
         #{place,jdbcType=VARCHAR},
       </if>
-      <if test="addrGnote != null" >
+      <if test="addrGnote != null">
         #{addrGnote,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="pics != null" >
+      <if test="pics != null">
         #{pics,jdbcType=VARCHAR},
       </if>
-      <if test="inspector != null" >
+      <if test="inspector != null">
         #{inspector,jdbcType=VARCHAR},
       </if>
-      <if test="inspectTime != null" >
+      <if test="inspectTime != null">
         #{inspectTime,jdbcType=INTEGER},
       </if>
-      <if test="result != null" >
+      <if test="result != null">
         #{result,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="level != null" >
+      <if test="level != null">
         #{level,jdbcType=INTEGER},
       </if>
-      <if test="completeTime != null" >
+      <if test="completeTime != null">
         #{completeTime,jdbcType=INTEGER},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         #{creatorId,jdbcType=VARCHAR},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         #{isEnable,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.DailyPatrol" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.DailyPatrol">
     update gov_daily_patrol
-    <set >
-      <if test="reportPerson != null" >
+    <set>
+      <if test="reportPerson != null">
         report_person = #{reportPerson,jdbcType=VARCHAR},
       </if>
-      <if test="reportPersonId != null" >
+      <if test="reportPersonId != null">
         report_person_id = #{reportPersonId,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="patrolType != null" >
+      <if test="patrolType != null">
         patrol_type = #{patrolType,jdbcType=INTEGER},
       </if>
-      <if test="classify != null" >
+      <if test="classify != null">
         classify = #{classify,jdbcType=INTEGER},
       </if>
-      <if test="place != null" >
+      <if test="place != null">
         place = #{place,jdbcType=VARCHAR},
       </if>
-      <if test="addrGnote != null" >
+      <if test="addrGnote != null">
         addr_gnote = #{addrGnote,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="pics != null" >
+      <if test="pics != null">
         pics = #{pics,jdbcType=VARCHAR},
       </if>
-      <if test="inspector != null" >
+      <if test="inspector != null">
         inspector = #{inspector,jdbcType=VARCHAR},
       </if>
-      <if test="inspectTime != null" >
+      <if test="inspectTime != null">
         inspect_time = #{inspectTime,jdbcType=INTEGER},
       </if>
-      <if test="result != null" >
+      <if test="result != null">
         result = #{result,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="level != null" >
+      <if test="level != null">
         level = #{level,jdbcType=INTEGER},
       </if>
-      <if test="completeTime != null" >
+      <if test="completeTime != null">
         complete_time = #{completeTime,jdbcType=INTEGER},
       </if>
-      <if test="creatorId != null" >
+      <if test="creatorId != null">
         creator_id = #{creatorId,jdbcType=VARCHAR},
       </if>
-      <if test="isEnable != null" >
+      <if test="isEnable != null">
         is_enable = #{isEnable,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.DailyPatrol" >
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.DailyPatrol">
     update gov_daily_patrol
     set report_person = #{reportPerson,jdbcType=VARCHAR},
       report_person_id = #{reportPersonId,jdbcType=INTEGER},
