@@ -6,6 +6,8 @@ public class UserRole extends BaseEntity {
 
     private String roleIds;
 
+    private String creator;
+
     public Integer getUserId() {
         return userId;
     }
@@ -22,4 +24,11 @@ public class UserRole extends BaseEntity {
         this.roleIds = roleIds == null ? null : roleIds.trim();
     }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
+    }
 }

@@ -1,68 +1,181 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.frt.govern.dao.RolePermissionMapper" >
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.RolePermission" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="role_Id" property="roleId" jdbcType="INTEGER" />
-    <result column="permission_ids" property="permissionIds" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.frt.govern.dao.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.RolePermission">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_Id" jdbcType="INTEGER" property="roleId" />
+    <result column="permission_ids" jdbcType="VARCHAR" property="permissionIds" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
+    id, role_Id, permission_ids, create_time, creator_id, is_enable, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role_permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="xyz.frt.govern.model.RolePermission">
+    insert into sys_role_permission (id, role_Id, permission_ids, 
+      create_time, creator_id, is_enable, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permissionIds,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER}, #{isEnable,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.RolePermission">
+    insert into sys_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleId != null">
+        role_Id,
+      </if>
+      <if test="permissionIds != null">
+        permission_ids,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionIds != null">
+        #{permissionIds,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.RolePermission">
+    update sys_role_permission
+    <set>
+      <if test="roleId != null">
+        role_Id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionIds != null">
+        permission_ids = #{permissionIds,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.RolePermission">
+    update sys_role_permission
+    set role_Id = #{roleId,jdbcType=INTEGER},
+      permission_ids = #{permissionIds,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=INTEGER},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.RolePermission">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_Id" jdbcType="INTEGER" property="roleId" />
+    <result column="permission_ids" jdbcType="VARCHAR" property="permissionIds" />
+  </resultMap>
+  <sql id="Base_Column_List">
     id, role_Id, permission_ids
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_role_permission
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_role_permission
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.RolePermission" >
+  <insert id="insert" parameterType="xyz.frt.govern.model.RolePermission">
     insert into t_role_permission (id, role_Id, permission_ids
       )
     values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permissionIds,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.RolePermission" >
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.RolePermission">
     insert into t_role_permission
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="roleId != null" >
+      <if test="roleId != null">
         role_Id,
       </if>
-      <if test="permissionIds != null" >
+      <if test="permissionIds != null">
         permission_ids,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="roleId != null" >
+      <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="permissionIds != null" >
+      <if test="permissionIds != null">
         #{permissionIds,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.RolePermission" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.RolePermission">
     update t_role_permission
-    <set >
-      <if test="roleId != null" >
+    <set>
+      <if test="roleId != null">
         role_Id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="permissionIds != null" >
+      <if test="permissionIds != null">
         permission_ids = #{permissionIds,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.RolePermission" >
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.RolePermission">
     update t_role_permission
     set role_Id = #{roleId,jdbcType=INTEGER},
       permission_ids = #{permissionIds,jdbcType=VARCHAR}

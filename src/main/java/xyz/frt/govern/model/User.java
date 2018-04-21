@@ -4,11 +4,13 @@ public class User extends BaseEntity {
 
     private String username;
 
+    private String trueName;
+
     private String password;
 
-    private String phone;
+    private String salt;
 
-    private Integer enable;
+    private String phone;
 
     public String getUsername() {
         return username;
@@ -16,6 +18,14 @@ public class User extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getTrueName() {
+        return trueName;
+    }
+
+    public void setTrueName(String trueName) {
+        this.trueName = trueName == null ? null : trueName.trim();
     }
 
     public String getPassword() {
@@ -26,29 +36,19 @@ public class User extends BaseEntity {
         this.password = password == null ? null : password.trim();
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
-    }
-
-    public Integer getEnable() {
-        return enable;
-    }
-
-    public void setEnable(Integer enable) {
-        this.enable = enable;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", enable=" + enable +
-                '}';
     }
 }

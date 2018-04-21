@@ -1,6 +1,6 @@
 package xyz.frt.govern.model;
 
-public class RolePermission extends BaseEntity {
+public class RolePermission {
 
     private Integer roleId;
 
