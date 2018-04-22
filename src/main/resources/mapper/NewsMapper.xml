@@ -20,6 +20,9 @@
   <sql id="Blob_Column_List">
     content
   </sql>
+  <sql id="Base_Table_Name">
+    gov_news
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

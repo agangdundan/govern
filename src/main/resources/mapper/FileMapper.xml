@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.frt.govern.dao.FileMapper" >
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.File" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_name, creator_id, create_time, remark, is_enable, url, parent_name
+  </sql>
+  <sql id="Base_Table_Name">
+    sys_file
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="xyz.frt.govern.model.File" >
+    insert into sys_file (id, file_name, creator_id, 
+      create_time, remark, is_enable, 
+      url, parent_name)
+    values (#{id,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{isEnable,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.File" >
+    insert into sys_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="parentName != null" >
+        parent_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.File" >
+    update sys_file
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null" >
+        parent_name = #{parentName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.File" >
+    update sys_file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      parent_name = #{parentName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!-- Customer SQL Statement -->
+  <select id="selectByConditions" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
+
+  <select id="selectByConditionsOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+  </select>
+
+  <select id="selectAllOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectCount">
+    select count(*)
+    from
+    <include refid="Base_Table_Name"/>
+  </select>
+
+  <select id="selectCountByConditions">
+    select count(*)
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" item="value" index="key" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
+</mapper>

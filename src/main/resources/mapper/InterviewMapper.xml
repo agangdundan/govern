@@ -22,6 +22,9 @@
     id, relation_id, pics, view_type, person_status, content, interviewer, interviewer_id, 
     interview_date, interview_status, create_time, remark, creator, creator_id, is_enable
   </sql>
+  <sql id="Base_Table_Name">
+    gov_interview
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

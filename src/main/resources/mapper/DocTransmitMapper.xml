@@ -16,6 +16,9 @@
   <sql id="Base_Column_List">
     id, title, pic, creator, creator_id, create_time, files, content, is_enable, remark
   </sql>
+  <sql id="Base_Table_Name">
+    gov_doc_transmit
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

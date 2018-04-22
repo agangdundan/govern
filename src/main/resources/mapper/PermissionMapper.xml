@@ -15,6 +15,9 @@
   <sql id="Base_Column_List">
     id, name, res_url, type, description, create_time, creator_id, is_enable, remark
   </sql>
+  <sql id="Base_Table_Name">
+    sys_permission
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

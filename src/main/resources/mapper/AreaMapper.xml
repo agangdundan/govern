@@ -17,6 +17,9 @@
     id, province, city, countryside, street, village, remark, creator_id, is_enable, 
     create_time
   </sql>
+  <sql id="Base_Table_Name">
+    gov_area
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

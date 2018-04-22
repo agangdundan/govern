@@ -57,7 +57,7 @@ public abstract class BaseController<T extends BaseEntity> {
     }
 
     JsonResult updateItemByPrimaryKey(T item) {
-        item = getBaseService().updateByPrimaryKey(item);
+        item = getBaseService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
             return JsonResult.error("Update error");
         }

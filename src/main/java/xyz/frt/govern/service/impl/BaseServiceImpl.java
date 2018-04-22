@@ -63,8 +63,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
         if (BaseUtils.isNullOrEmpty(item)) {
             return null;
         }
-        Integer result = getMapper().updateByPrimaryKeySelective(item);
-        if (result == 0) {
+        if (getMapper().updateByPrimaryKeySelective(item) == 0) {
             return null;
         }
         return getMapper().selectByPrimaryKey(item.getId());
@@ -76,8 +75,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
         if (BaseUtils.isNullOrEmpty(item)) {
             return  null;
         }
-        Integer result = getMapper().updateByPrimaryKey(item);
-        if (result == 0) {
+        if (getMapper().updateByPrimaryKey(item) == 0) {
             return null;
         }
         return getMapper().selectByPrimaryKey(item.getId());
