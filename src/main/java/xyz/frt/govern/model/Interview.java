@@ -22,10 +22,6 @@ public class Interview extends BaseEntity {
 
     private String creator;
 
-    private Integer creatorId;
-
-    private String isEnable;
-
     public Integer getRelationId() {
         return relationId;
     }
@@ -106,19 +102,4 @@ public class Interview extends BaseEntity {
         this.creator = creator == null ? null : creator.trim();
     }
 
-    public Integer getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Integer creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getIsEnable() {
-        return isEnable;
-    }
-
-    public void setIsEnable(String isEnable) {
-        this.isEnable = isEnable == null ? null : isEnable.trim();
-    }
 }

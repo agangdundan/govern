@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.frt.govern.dao.AreaAnoticeMapper">
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.AreaAnotice">
+<mapper namespace="xyz.frt.govern.dao.AreaNoticeMapper">
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.AreaNotice">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
@@ -25,7 +25,7 @@
     delete from gov_area_anotice
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.AreaAnotice">
+  <insert id="insert" parameterType="xyz.frt.govern.model.AreaNotice">
     insert into gov_area_anotice (id, title, pic, 
       creator, creator_id, create_time, 
       content, is_enable, remark
@@ -35,7 +35,7 @@
       #{content,jdbcType=VARCHAR}, #{isEnable,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.AreaAnotice">
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.AreaNotice">
     insert into gov_area_anotice
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.AreaAnotice">
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.AreaNotice">
     update gov_area_anotice
     <set>
       <if test="title != null">
@@ -126,7 +126,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.AreaAnotice">
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.AreaNotice">
     update gov_area_anotice
     set title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
@@ -138,4 +138,63 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- Customer SQL Statement -->
+  <select id="selectByConditions" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
+
+  <select id="selectByConditionsOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+  </select>
+
+  <select id="selectAllOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectCount">
+    select count(*)
+    from
+    <include refid="Base_Table_Name"/>
+  </select>
+
+  <select id="selectCountByConditions">
+    select count(*)
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" item="value" index="key" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
 </mapper>

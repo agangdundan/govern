@@ -14,6 +14,9 @@
   <sql id="Base_Column_List">
     id, user_id, role_ids, create_time, creator, creator_id, is_enable, remark
   </sql>
+  <sql id="Base_Table_Name">
+    sys_user_role
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -157,6 +160,32 @@
     <include refid="Base_Column_List" />
     from
     <include refid="Base_Table_Name" />
+  </select>
+
+  <select id="selectAllOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectCount">
+    select count(*)
+    from
+    <include refid="Base_Table_Name"/>
+  </select>
+
+  <select id="selectCountByConditions">
+    select count(*)
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" item="value" index="key" separator="and">
+      ${key} = #{value}
+    </foreach>
   </select>
 
 </mapper>

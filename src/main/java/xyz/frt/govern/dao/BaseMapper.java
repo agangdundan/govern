@@ -28,10 +28,12 @@ public interface BaseMapper<T extends BaseEntity> {
 
     List<T> selectByConditionsOrderBy(@Param("map") Map<String, Object> conditions, @Param("orderBy") String orderBy);
 
-    Integer updateByConditions(Map<String, Object> conditions);
+    Integer updateByConditions(@Param("map") Map<String, Object> conditions);
 
     Integer selectCount();
 
-    Integer selectCountByConditions(Map<String, Object> map);
+    Integer selectCountByConditions(@Param("map") Map<String, Object> map);
+
+
 
 }

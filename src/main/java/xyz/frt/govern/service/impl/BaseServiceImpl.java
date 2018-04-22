@@ -1,6 +1,10 @@
 package xyz.frt.govern.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.springframework.web.multipart.MultipartFile;
 import xyz.frt.govern.common.BaseUtils;
+import xyz.frt.govern.common.PageInfo;
 import xyz.frt.govern.dao.BaseMapper;
 import xyz.frt.govern.dao.UserMapper;
 import xyz.frt.govern.model.BaseEntity;
@@ -11,9 +15,12 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author phw
@@ -98,6 +105,32 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
 
     @Override
     @Cacheable
+    public PageInfo<T> selectAllPage(Integer page, Integer limit) {
+        if (BaseUtils.isNullOrEmpty(page) || BaseUtils.isNullOrEmpty(limit)) {
+            return null;
+        }
+        Page<T> tPage = PageHelper.startPage(page, limit);
+        List<T> data = getMapper().selectAll();
+        Integer totalCount = getMapper().selectCount();
+        Integer totalPage = totalCount / limit;
+        return new PageInfo<>(page, totalPage, limit, totalCount, data);
+    }
+
+    @Override
+    @Cacheable
+    public PageInfo<T> selectAllPage(Integer page, Integer limit, String orderBy) {
+        if (BaseUtils.isNullOrEmpty(page) || BaseUtils.isNullOrEmpty(limit) || BaseUtils.isNullOrEmpty(orderBy)) {
+            return null;
+        }
+        Page<T> tPage = PageHelper.startPage(page, limit);
+        List<T> data = getMapper().selectAllOrderBy(orderBy);
+        Integer totalCount = getMapper().selectCount();
+        Integer totalPage = totalCount / limit;
+        return new PageInfo<>(page, totalPage, limit, totalCount, data);
+    }
+
+    @Override
+    @Cacheable
     public List<T> selectByConditions(Map<String, Object> map) {
         List<T> items = getMapper().selectByConditions(map);
         if (BaseUtils.isNullOrEmpty(items)) {
@@ -157,58 +190,74 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
         return getMapper().selectCountByConditions(map);
     }
 
-
-
-
-    /*@Override
-    public JsonResult removeByPrimaryKey(Integer id) {
-        return null;
-    }
-
     @Override
-    public JsonResult add(T item) {
-        return null;
+    @Cacheable
+    public PageInfo<T> selectByConditionsPage(Map<String, Object> map, Integer page, Integer limit) {
+        if (BaseUtils.isNullOrEmpty(map) || BaseUtils.isNullOrEmpty(page) || BaseUtils.isNullOrEmpty(limit)) {
+            return null;
+        }
+        Integer totalCount = getMapper().selectCountByConditions(map);
+        if (totalCount == 0) {
+            return null;
+        }
+        Integer totalPage = totalCount / limit;
+        Page<T> tPage = PageHelper.startPage(page, limit);
+        List<T> data = getMapper().selectByConditions(map);
+
+        return new PageInfo<>(page, totalPage, limit, totalCount, data);
     }
 
     @Override
     @Cacheable
-    public JsonResult findByPrimaryKey(Integer id) {
-        T item = selectByPrimaryKey(id);
-        if (BaseUtils.isNullOrEmpty(item)) {
-            return JsonResult.warn("没有匹配的记录.");
+    public PageInfo<T> selectByConditionsPage(Map<String, Object> map, String orderBy, Integer page, Integer limit) {
+        if (BaseUtils.isNullOrEmpty(map) || BaseUtils.isNullOrEmpty(page) || BaseUtils.isNullOrEmpty(limit)) {
+            return null;
         }
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put(AppConst.KEY_DATA, item);
-        return JsonResult.success("OK", dataMap);
+        if (BaseUtils.isNullOrEmpty(orderBy)) {
+            return null;
+        }
+        Integer totalCount = getMapper().selectCountByConditions(map);
+        if (totalCount == 0) {
+            return null;
+        }
+        Integer totalPage = totalCount / limit;
+        Page<T> tPage = PageHelper.startPage(page, limit);
+        List<T> data = getMapper().selectByConditionsOrderBy(map, orderBy);
+
+        return new PageInfo<>(page, totalPage, limit, totalCount, data);
     }
 
     @Override
-    public JsonResult upgradeByPrimaryKey(T item) {
-        return null;
+    public String[] filesUpload(String path, List<MultipartFile> files) {
+        if (BaseUtils.isNullOrEmpty(files)) {
+            return null;
+        }
+        String[] filesPath = new String[files.size() + 1];
+        for (int i = 0; i < files.size(); i++) {
+            filesPath[i] = fileUpload(path, files.get(i));
+        }
+        return filesPath;
     }
 
     @Override
-    public JsonResult findAll() {
-        return null;
-    }
+    public String fileUpload(String path, MultipartFile file) {
+        if (BaseUtils.isNullOrEmpty(file)) {
+            return null;
+        }
+        String originalName = file.getOriginalFilename();
+        String fileName = UUID.randomUUID().toString() + originalName.substring(originalName.lastIndexOf("."), originalName.length());
+        try {
+            File uploadFile = new File(path, fileName);
+            if (!uploadFile.getParentFile().exists()) {
+                if (uploadFile.getParentFile().mkdirs()) {
+                    return null;
+                }
+            }
+            file.transferTo(uploadFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    @Override
-    public JsonResult findAll(String orderBy) {
-        return null;
+        return path + File.separator + fileName;
     }
-
-    @Override
-    public JsonResult findByConditions(Map<String, Object> map, String orderBy) {
-        return null;
-    }
-
-    @Override
-    public JsonResult findByConditions(Map<String, Object> map) {
-        return null;
-    }
-
-    @Override
-    public JsonResult load(String col, Object value) {
-        return null;
-    }*/
 }

@@ -1,5 +1,6 @@
 package xyz.frt.govern.common;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import java.util.Map;
  * @date Created in 04-08-2018
  * @description
  */
-public class BaseUtils {
+public class BaseUtils<T> {
 
     /**
      * 判断一个对象是否为空

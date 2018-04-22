@@ -36,6 +36,8 @@ public class JWTFilter extends AccessControlFilter {
         //Verify token
         try {
             Map<String, Object> map = JWTUtil.parserJwt(requestToken);
+            servletRequest.setAttribute(AppConst.KEY_ID, map.get(AppConst.KEY_ID));
+            servletRequest.setAttribute(AppConst.KEY_USERNAME, map.get(AppConst.KEY_USERNAME));
         } catch (ExpiredJwtException e) {
             out(servletResponse, JSON.toJSONString(JsonResult.error(401, "Token expired, Try re-login.")));
             return false;

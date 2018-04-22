@@ -1,5 +1,7 @@
 package xyz.frt.govern.service;
 
+import org.springframework.web.multipart.MultipartFile;
+import xyz.frt.govern.common.PageInfo;
 import xyz.frt.govern.model.BaseEntity;
 
 import java.util.List;
@@ -39,9 +41,17 @@ public interface BaseService<T extends BaseEntity> {
 
     List<T> selectAll(String orderBy);
 
+    PageInfo<T> selectAllPage(Integer page, Integer limit);
+
+    PageInfo<T> selectAllPage(Integer page, Integer limit, String orderBy);
+
     List<T> selectByConditions(Map<String, Object> map);
 
     List<T> selectByConditions(Map<String, Object> map, String orderBy);
+
+    PageInfo<T> selectByConditionsPage(Map<String, Object> map, Integer page, Integer limit);
+
+    PageInfo<T> selectByConditionsPage(Map<String, Object> map, String orderBy, Integer page, Integer limit);
 
     List<T> updateByConditions(Map<String, Object> map);
 
@@ -51,23 +61,8 @@ public interface BaseService<T extends BaseEntity> {
 
     Integer selectCountByConditions(Map<String, Object> map);
 
+    String[] filesUpload(String path, List<MultipartFile> files);
 
-    /*JsonResult removeByPrimaryKey(Integer id);
-
-    JsonResult add(T item);
-
-    JsonResult findByPrimaryKey(Integer id);
-
-    JsonResult upgradeByPrimaryKey(T item);
-
-    JsonResult findAll();
-
-    JsonResult findAll(String orderBy);
-
-    JsonResult findByConditions(Map<String, Object> map, String orderBy);
-
-    JsonResult findByConditions(Map<String, Object> map);
-
-    JsonResult load(String col, Object value);*/
+    String fileUpload(String path, MultipartFile file);
 
 }

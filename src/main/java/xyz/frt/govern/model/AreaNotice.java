@@ -1,6 +1,6 @@
 package xyz.frt.govern.model;
 
-public class AreaAnotice extends BaseEntity {
+public class AreaNotice extends BaseEntity {
 
     private String title;
 

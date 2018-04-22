@@ -16,7 +16,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
-    <result column="is_enable" jdbcType="VARCHAR" property="isEnable" />
+    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
   </resultMap>
   <sql id="Base_Column_List">
     id, relation_id, pics, view_type, person_status, content, interviewer, interviewer_id, 
@@ -209,4 +209,63 @@
       is_enable = #{isEnable,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- Customer SQL Statement -->
+  <select id="selectByConditions" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
+
+  <select id="selectByConditionsOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+  </select>
+
+  <select id="selectAllOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectCount">
+    select count(*)
+    from
+    <include refid="Base_Table_Name"/>
+  </select>
+
+  <select id="selectCountByConditions">
+    select count(*)
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" item="value" index="key" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
 </mapper>

@@ -150,4 +150,63 @@
       create_time = #{createTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- Customer SQL Statement -->
+  <select id="selectByConditions" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
+
+  <select id="selectByConditionsOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" index="key" item="value" separator="and">
+      ${key} = #{value}
+    </foreach>
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+  </select>
+
+  <select id="selectAllOrderBy" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Base_Table_Name" />
+    <if test="orderBy != null">
+      order by #{orderBy}
+    </if>
+  </select>
+
+  <select id="selectCount">
+    select count(*)
+    from
+    <include refid="Base_Table_Name"/>
+  </select>
+
+  <select id="selectCountByConditions">
+    select count(*)
+    from
+    <include refid="Base_Table_Name" />
+    where
+    <foreach collection="map" item="value" index="key" separator="and">
+      ${key} = #{value}
+    </foreach>
+  </select>
 </mapper>

@@ -1,5 +1,6 @@
 package xyz.frt.govern.service.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import xyz.frt.govern.dao.BaseMapper;
 import xyz.frt.govern.dao.RoleMapper;
 import xyz.frt.govern.model.Role;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  * @description
  */
 @Service
+@Transactional
 public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleService {
 
     @Autowired

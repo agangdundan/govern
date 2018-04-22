@@ -60,7 +60,8 @@ public class ShiroConfig {
         // 访问401和404页面不通过我们的Filter
         filterRuleMap.put("/401", "anon");
         filterRuleMap.put("/404", "anon");
-        filterRuleMap.put("/login", "anon");
+        filterRuleMap.put("/sign-in", "anon");
+        filterRuleMap.put("/sign-up", "anon");
         filterFactoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return filterFactoryBean;
     }
