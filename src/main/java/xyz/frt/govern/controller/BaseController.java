@@ -91,4 +91,21 @@ public abstract class BaseController<T extends BaseEntity> {
         dataMap.put(AppConst.KEY_DATA, filePath);
         return JsonResult.success("File upload successful", dataMap);
     }
+
+    JsonResult addItem(T item) {
+        if (BaseUtils.isNullOrEmpty(item)) {
+            return JsonResult.error("Get item error");
+        }
+        if (getBaseService().insertSelective(item) == 0) {
+            return JsonResult.error("Didn't insert any record");
+        }
+        return JsonResult.success("Insert item successful");
+    }
+
+    JsonResult removeItemByPrimaryKey(Integer id) {
+        if (getBaseService().deleteByPrimaryKey(id) == 0) {
+            return JsonResult.error("Didn't remove any item");
+        }
+        return JsonResult.success("Remove successful");
+    }
 }
