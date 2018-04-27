@@ -1,5 +1,6 @@
 package xyz.frt.govern.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.frt.govern.common.AppConst;
 import xyz.frt.govern.common.JsonResult;
@@ -7,12 +8,8 @@ import xyz.frt.govern.common.PageInfo;
 import xyz.frt.govern.model.User;
 import xyz.frt.govern.service.BaseService;
 import xyz.frt.govern.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author phw
@@ -64,7 +61,5 @@ public class UserController extends BaseController<User> {
     public JsonResult findUsers(PageInfo info) {
         return findItems(info);
     }
-
-
 
 }

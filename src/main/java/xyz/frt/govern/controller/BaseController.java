@@ -56,15 +56,20 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
-    JsonResult updateItemByPrimaryKey(T item) {
+    JsonResult upgradeItemByPrimaryKey(Integer id, T item) {
+        if (BaseUtils.isNullOrEmpty(item)) {
+            return JsonResult.error("Get params error");
+        }
+        item.setId(id);
         item = getBaseService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
-            return JsonResult.error("Update error");
+            return JsonResult.error("Upgrade error");
         }
         dataMap = new HashMap<>();
         dataMap.put(AppConst.KEY_DATA, item);
-        return JsonResult.success("Success", dataMap);
+        return JsonResult.success("Upgrade successful", dataMap);
     }
+
 
     JsonResult filesUpload(ServletRequest req) {
         MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
@@ -102,10 +107,18 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Insert item successful");
     }
 
+
     JsonResult removeItemByPrimaryKey(Integer id) {
         if (getBaseService().deleteByPrimaryKey(id) == 0) {
             return JsonResult.error("Didn't remove any item");
         }
         return JsonResult.success("Remove successful");
     }
+
+    JsonResult findItemsByBaseEntity(T item) {
+        Map<String, Object> conditions = new HashMap<>();
+        getBaseService().selectByConditions(conditions);
+        return null;
+    }
+
 }
