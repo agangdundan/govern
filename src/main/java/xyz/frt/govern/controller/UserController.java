@@ -23,7 +23,7 @@ public class UserController extends BaseController<User> {
     private UserService userService;
 
     @Override
-    BaseService<User> getBaseService() {
+    BaseService<User> getService() {
         return userService;
     }
 
@@ -47,8 +47,8 @@ public class UserController extends BaseController<User> {
         return userService.logout();
     }
 
-    @GetMapping("/edit-pass")
-    public JsonResult updatePass(String oldPass, String newPass, ServletRequest req) {
+    @PostMapping("/edit-pass")
+    public JsonResult updatePass(@RequestParam String oldPass, @RequestParam String newPass, ServletRequest req) {
         return userService.updatePass(oldPass, newPass, Integer.valueOf((String) req.getAttribute(AppConst.KEY_ID)));
     }
 
@@ -57,9 +57,14 @@ public class UserController extends BaseController<User> {
         return userService.findPass(user, code);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/users/page")
     public JsonResult findUsers(PageInfo info) {
         return findItems(info);
+    }
+
+    @GetMapping("/users")
+    public JsonResult findUsers(User user) {
+        return findItemsByConditions(user);
     }
 
 }

@@ -17,7 +17,7 @@ public class AreaNoticeController extends BaseController<AreaNotice> {
     private AreaNoticeService areaNoticeService;
 
     @Override
-    BaseService<AreaNotice> getBaseService() {
+    BaseService<AreaNotice> getService() {
         return areaNoticeService;
     }
 

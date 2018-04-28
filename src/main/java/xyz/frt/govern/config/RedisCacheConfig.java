@@ -1,5 +1,6 @@
 package xyz.frt.govern.config;
 
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import xyz.frt.govern.model.User;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -28,10 +29,11 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
      */
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
-        Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(User.class);
+        //Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(User.class);
+        JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
         configuration = configuration.serializeValuesWith(RedisSerializationContext
-                .SerializationPair.fromSerializer(jackson2JsonRedisSerializer)).entryTtl(Duration.ofDays(30));
+                .SerializationPair.fromSerializer(jdkSerializationRedisSerializer)).entryTtl(Duration.ofDays(30));
         return configuration;
     }
 

@@ -24,10 +24,10 @@ public abstract class BaseController<T extends BaseEntity> {
 
     Map<String, Object> dataMap = new HashMap<>();
 
-    abstract BaseService<T> getBaseService();
+    abstract BaseService<T> getService();
 
     JsonResult findItems() {
-        List<T> items = getBaseService().selectAll();
+        List<T> items = getService().selectAll();
         if (BaseUtils.isNullOrEmpty(items)) {
             JsonResult.error("Didn't have any record");
         }
@@ -40,14 +40,14 @@ public abstract class BaseController<T extends BaseEntity> {
         if (BaseUtils.isNullOrEmpty(info.getPage()) || BaseUtils.isNullOrEmpty(info.getLimit())) {
             return JsonResult.error("Get params error");
         }
-        info = getBaseService().selectAllPage(info.getPage(), info.getLimit());
+        info = getService().selectAllPage(info.getPage(), info.getLimit());
         dataMap = new HashMap<>();
-        dataMap.put(AppConst.KEY_DATA, info);
+        dataMap.put(AppConst.KEY_PAGE_INFO, info);
         return JsonResult.success("Success", dataMap);
     }
 
     JsonResult findItemByPrimaryKey(Integer id) {
-        T item = getBaseService().selectByPrimaryKey(id);
+        T item = getService().selectByPrimaryKey(id);
         if (BaseUtils.isNullOrEmpty(item)) {
             JsonResult.error("No such record");
         }
@@ -61,7 +61,7 @@ public abstract class BaseController<T extends BaseEntity> {
             return JsonResult.error("Get params error");
         }
         item.setId(id);
-        item = getBaseService().updateByPrimaryKeySelective(item);
+        item = getService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
             return JsonResult.error("Upgrade error");
         }
@@ -73,7 +73,7 @@ public abstract class BaseController<T extends BaseEntity> {
 
     JsonResult filesUpload(ServletRequest req) {
         MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-        String[] filesPath = getBaseService().filesUpload(req.getServletContext().getRealPath("/upload"), multiReq.getFiles("file"));
+        String[] filesPath = getService().filesUpload(req.getServletContext().getRealPath("/upload"), multiReq.getFiles("file"));
         if (BaseUtils.isNullOrEmpty(filesPath)) {
             return JsonResult.error("Files upload error");
         }
@@ -88,7 +88,7 @@ public abstract class BaseController<T extends BaseEntity> {
         if (BaseUtils.isNullOrEmpty(file)) {
             return JsonResult.error("File upload error");
         }
-        String filePath = getBaseService().fileUpload(req.getServletContext().getRealPath("/upload"), file);
+        String filePath = getService().fileUpload(req.getServletContext().getRealPath("/upload"), file);
         if (BaseUtils.isNullOrEmpty(filePath)) {
             return JsonResult.error("File upload error");
         }
@@ -101,7 +101,7 @@ public abstract class BaseController<T extends BaseEntity> {
         if (BaseUtils.isNullOrEmpty(item)) {
             return JsonResult.error("Get item error");
         }
-        if (getBaseService().insertSelective(item) == 0) {
+        if (getService().insertSelective(item) == 0) {
             return JsonResult.error("Didn't insert any record");
         }
         return JsonResult.success("Insert item successful");
@@ -109,16 +109,24 @@ public abstract class BaseController<T extends BaseEntity> {
 
 
     JsonResult removeItemByPrimaryKey(Integer id) {
-        if (getBaseService().deleteByPrimaryKey(id) == 0) {
+        if (getService().deleteByPrimaryKey(id) == 0) {
             return JsonResult.error("Didn't remove any item");
         }
         return JsonResult.success("Remove successful");
     }
 
-    JsonResult findItemsByBaseEntity(T item) {
-        Map<String, Object> conditions = new HashMap<>();
-        getBaseService().selectByConditions(conditions);
-        return null;
+    JsonResult findItemsByConditions(T item) {
+        Map<String, Object> conditions = BaseUtils.Object2ConditionMap(item);
+        if (BaseUtils.isNullOrEmpty(conditions)) {
+            return JsonResult.error("Get params error");
+        }
+        List<T> items = getService().selectByConditions(conditions);
+        if (BaseUtils.isNullOrEmpty(items)) {
+            return JsonResult.warn("Didn't have any item");
+        }
+        dataMap = new HashMap<>();
+        dataMap.put(AppConst.KEY_DATA, items);
+        return JsonResult.success("Success", dataMap);
     }
 
 }

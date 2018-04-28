@@ -65,8 +65,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /**
      * 只用当用户需要检测权限的时候才会用到这个方法
-     * @param principalCollection
-     * @return
+     * @param principalCollection c
+     * @return authorization info
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {

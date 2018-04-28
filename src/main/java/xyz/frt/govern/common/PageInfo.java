@@ -2,10 +2,11 @@ package xyz.frt.govern.common;
 
 import xyz.frt.govern.model.BaseEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageInfo<T extends BaseEntity> {
+public class PageInfo<T extends BaseEntity> implements Serializable {
 
     private Integer page = 1;
     private Integer totalPage;

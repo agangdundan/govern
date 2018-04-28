@@ -303,13 +303,13 @@
     </if>
   </select>
 
-  <select id="selectCount">
+  <select id="selectCount" resultType="java.lang.Integer">
     select count(*)
     from
     <include refid="Base_Table_Name"/>
   </select>
 
-  <select id="selectCountByConditions">
+  <select id="selectCountByConditions" resultType="java.lang.Integer">
     select count(*)
     from
     <include refid="Base_Table_Name" />

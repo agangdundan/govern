@@ -18,7 +18,7 @@ public class DailyPatrolController extends BaseController<DailyPatrol> {
     private DailyPatrolService dailyPatrolService;
 
     @Override
-    BaseService<DailyPatrol> getBaseService() {
+    BaseService<DailyPatrol> getService() {
         return dailyPatrolService;
     }
 

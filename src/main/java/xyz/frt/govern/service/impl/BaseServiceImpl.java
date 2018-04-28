@@ -52,6 +52,19 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     }
 
     @Override
+    public Integer insertItems(List<T> items) {
+        if (BaseUtils.isNullOrEmpty(items)) {
+            return 0;
+        }
+        Integer result = 0;
+        for (T item: items) {
+            getMapper().insertSelective(item);
+            result++;
+        }
+        return result;
+    }
+
+    @Override
     @Cacheable
     public T selectByPrimaryKey(Integer id) {
         return getMapper().selectByPrimaryKey(id);

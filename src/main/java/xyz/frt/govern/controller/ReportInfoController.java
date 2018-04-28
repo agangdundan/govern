@@ -17,7 +17,7 @@ public class ReportInfoController extends BaseController<ReportInfo> {
     private ReportInfoService reportInfoService;
 
     @Override
-    BaseService<ReportInfo> getBaseService() {
+    BaseService<ReportInfo> getService() {
         return reportInfoService;
     }
 

@@ -31,6 +31,8 @@ public interface BaseService<T extends BaseEntity> {
      */
     Integer insertSelective(T item);
 
+    Integer insertItems(List<T> items);
+
     T selectByPrimaryKey(Integer id);
 
     T updateByPrimaryKeySelective(T item);

@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `govern` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `govern`;
--- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
 --
 -- Host: localhost    Database: govern
 -- ------------------------------------------------------
--- Server version	5.7.21-0ubuntu0.17.10.1
+-- Server version	5.7.22-0ubuntu0.17.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -394,7 +394,7 @@ CREATE TABLE `sys_user` (
   `creator` varchar(45) DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -403,7 +403,7 @@ CREATE TABLE `sys_user` (
 
 LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
-INSERT INTO `sys_user` VALUES (1,'admin',NULL,'admin',NULL,'1899728714',NULL,NULL,NULL,NULL),(2,'phw',NULL,'199798',NULL,'17776304754',NULL,NULL,NULL,NULL);
+INSERT INTO `sys_user` VALUES (1,'admin',NULL,'admin',NULL,'1899728714',NULL,NULL,NULL,NULL),(2,'phw',NULL,'199798',NULL,'17776304754',NULL,NULL,NULL,NULL),(3,'zhangsan',NULL,'123456',NULL,'18030841160',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,4 +446,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-23 19:31:05
+-- Dump completed on 2018-04-28 23:03:33
