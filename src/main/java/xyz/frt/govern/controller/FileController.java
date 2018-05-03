@@ -23,7 +23,7 @@ public class FileController extends BaseController<File> {
     private FileService fileService;
 
     @Override
-    BaseService<File> getBaseService() {
+    BaseService<File> getService() {
         return fileService;
     }
 

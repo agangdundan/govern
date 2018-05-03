@@ -24,14 +24,10 @@ public abstract class BaseController<T extends BaseEntity> {
 
     Map<String, Object> dataMap = new HashMap<>();
 
-    abstract BaseService<T> getBaseService();
+    abstract BaseService<T> getService();
 
-    /**
-     * 查询所有记录列表
-     * @return 记录列表
-     */
     JsonResult findItems() {
-        List<T> items = getBaseService().selectAll();
+        List<T> items = getService().selectAll();
         if (BaseUtils.isNullOrEmpty(items)) {
             JsonResult.error("Didn't have any record");
         }
@@ -40,28 +36,18 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
-    /**
-     * 查询分页记录
-     * @param info 分页信息
-     * @return 每页显示的记录
-     */
     JsonResult findItems(PageInfo info) {
         if (BaseUtils.isNullOrEmpty(info.getPage()) || BaseUtils.isNullOrEmpty(info.getLimit())) {
             return JsonResult.error("Get params error");
         }
-        info = getBaseService().selectAllPage(info.getPage(), info.getLimit());
+        info = getService().selectAllPage(info.getPage(), info.getLimit());
         dataMap = new HashMap<>();
-        dataMap.put(AppConst.KEY_DATA, info);
+        dataMap.put(AppConst.KEY_PAGE_INFO, info);
         return JsonResult.success("Success", dataMap);
     }
 
-    /**
-     * 根据主键查找记录
-     * @param id 主键
-     * @return 记录
-     */
     JsonResult findItemByPrimaryKey(Integer id) {
-        T item = getBaseService().selectByPrimaryKey(id);
+        T item = getService().selectByPrimaryKey(id);
         if (BaseUtils.isNullOrEmpty(item)) {
             JsonResult.error("No such record");
         }
@@ -76,23 +62,33 @@ public abstract class BaseController<T extends BaseEntity> {
      * @return 更新后的记录
      */
     JsonResult updateItemByPrimaryKey(T item) {
-        item = getBaseService().updateByPrimaryKeySelective(item);
+        item = getService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
-            return JsonResult.error("Update error");
+            return JsonResult.error("Upgrade error");
         }
         dataMap = new HashMap<>();
         dataMap.put(AppConst.KEY_DATA, item);
-        return JsonResult.success("Success", dataMap);
+        return JsonResult.success("Upgrade successful", dataMap);
     }
 
-    /**
-     * 批量上传文件
-     * @param req 请求
-     * @return 服务器文件地址列表
-     */
+    JsonResult upgradeItemByPrimaryKey(Integer id, T item) {
+        if (BaseUtils.isNullOrEmpty(item)) {
+            return JsonResult.error("Get params error");
+        }
+        item.setId(id);
+        item = getService().updateByPrimaryKeySelective(item);
+        if (BaseUtils.isNullOrEmpty(item)) {
+            return JsonResult.error("Upgrade error");
+        }
+        dataMap = new HashMap<>();
+        dataMap.put(AppConst.KEY_DATA, item);
+        return JsonResult.success("Upgrade successful", dataMap);
+    }
+
+
     JsonResult filesUpload(ServletRequest req) {
         MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
-        String[] filesPath = getBaseService().filesUpload(req.getServletContext().getRealPath("/upload"), multiReq.getFiles("file"));
+        String[] filesPath = getService().filesUpload(req.getServletContext().getRealPath("/upload"), multiReq.getFiles("file"));
         if (BaseUtils.isNullOrEmpty(filesPath)) {
             return JsonResult.error("Files upload error");
         }
@@ -103,17 +99,11 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
-    /**
-     * 上传文件
-     * @param req 请求
-     * @param file 文件
-     * @return 文件服务器地址
-     */
     JsonResult fileUpload(ServletRequest req, MultipartFile file) {
         if (BaseUtils.isNullOrEmpty(file)) {
             return JsonResult.error("File upload error");
         }
-        String filePath = getBaseService().fileUpload(req.getServletContext().getRealPath("/upload"), file);
+        String filePath = getService().fileUpload(req.getServletContext().getRealPath("/upload"), file);
         if (BaseUtils.isNullOrEmpty(filePath)) {
             return JsonResult.error("File upload error");
         }
@@ -121,4 +111,37 @@ public abstract class BaseController<T extends BaseEntity> {
         dataMap.put(AppConst.KEY_DATA, filePath);
         return JsonResult.success("File upload successful", dataMap);
     }
+
+    JsonResult addItem(T item) {
+        if (BaseUtils.isNullOrEmpty(item)) {
+            return JsonResult.error("Get item error");
+        }
+        if (getService().insertSelective(item) == 0) {
+            return JsonResult.error("Didn't insert any record");
+        }
+        return JsonResult.success("Insert item successful");
+    }
+
+
+    JsonResult removeItemByPrimaryKey(Integer id) {
+        if (getService().deleteByPrimaryKey(id) == 0) {
+            return JsonResult.error("Didn't remove any item");
+        }
+        return JsonResult.success("Remove successful");
+    }
+
+    JsonResult findItemsByConditions(T item) {
+        Map<String, Object> conditions = BaseUtils.Object2ConditionMap(item);
+        if (BaseUtils.isNullOrEmpty(conditions)) {
+            return JsonResult.error("Get params error");
+        }
+        List<T> items = getService().selectByConditions(conditions);
+        if (BaseUtils.isNullOrEmpty(items)) {
+            return JsonResult.warn("Didn't have any item");
+        }
+        dataMap = new HashMap<>();
+        dataMap.put(AppConst.KEY_DATA, items);
+        return JsonResult.success("Success", dataMap);
+    }
+
 }

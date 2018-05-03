@@ -13,7 +13,9 @@ public class BaseEntity implements Serializable {
 
     private Integer createTime;
 
-    private Integer creator_id;
+    private Integer creatorId;
+
+    private String creator;
 
     private Integer isEnable;
 
@@ -35,12 +37,12 @@ public class BaseEntity implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getCreator_id() {
-        return creator_id;
+    public Integer getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator_id(Integer creator_id) {
-        this.creator_id = creator_id;
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
     }
 
     public Integer getIsEnable() {
@@ -57,5 +59,13 @@ public class BaseEntity implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 }

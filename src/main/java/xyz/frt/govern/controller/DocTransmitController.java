@@ -17,7 +17,7 @@ public class DocTransmitController extends BaseController<DocTransmit> {
     private DocTransmitService docTransmitService;
 
     @Override
-    BaseService<DocTransmit> getBaseService() {
+    BaseService<DocTransmit> getService() {
         return docTransmitService;
     }
 

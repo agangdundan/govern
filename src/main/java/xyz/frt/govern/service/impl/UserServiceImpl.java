@@ -135,8 +135,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         if (!(user.getPassword().equals(oldPass))) {
             return JsonResult.error("Password incorrect");
         }
-        user.setId(userId);
-        if (getMapper().updateByPrimaryKey(user) == 0) {
+        if (userMapper.updateByPrimaryKey(user) == 0) {
             return JsonResult.error("Update password error");
         }
         return JsonResult.success("Update password successful");

@@ -6,12 +6,12 @@
     <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
     <result column="create_time" jdbcType="INTEGER" property="createTime" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
-    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="creatorId" jdbcType="INTEGER" property="creatorId" />
     <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, role_desc, create_time, creator, creator_id, is_enable, remark
+    id, role_desc, create_time, creator, creatorId, is_enable, remark
   </sql>
   <sql id="Base_Table_Name">
     sys_role
@@ -28,7 +28,7 @@
   </delete>
   <insert id="insert" parameterType="xyz.frt.govern.model.Role">
     insert into sys_role (id, role_desc, create_time, 
-      creator, creator_id, is_enable, 
+      creator, creatorId, is_enable, 
       remark)
     values (#{id,jdbcType=INTEGER}, #{roleDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, 
       #{creator,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{isEnable,jdbcType=INTEGER}, 
@@ -50,7 +50,7 @@
         creator,
       </if>
       <if test="creatorId != null">
-        creator_id,
+        creatorId,
       </if>
       <if test="isEnable != null">
         is_enable,
@@ -96,7 +96,7 @@
         creator = #{creator,jdbcType=VARCHAR},
       </if>
       <if test="creatorId != null">
-        creator_id = #{creatorId,jdbcType=INTEGER},
+        creatorId = #{creatorId,jdbcType=INTEGER},
       </if>
       <if test="isEnable != null">
         is_enable = #{isEnable,jdbcType=INTEGER},
@@ -112,7 +112,7 @@
     set role_desc = #{roleDesc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=INTEGER},
       creator = #{creator,jdbcType=VARCHAR},
-      creator_id = #{creatorId,jdbcType=INTEGER},
+      creatorId = #{creatorId,jdbcType=INTEGER},
       is_enable = #{isEnable,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -161,13 +161,13 @@
     </if>
   </select>
 
-  <select id="selectCount">
+  <select id="selectCount" resultType="java.lang.Integer">
     select count(*)
     from
     <include refid="Base_Table_Name"/>
   </select>
 
-  <select id="selectCountByConditions">
+  <select id="selectCountByConditions" resultType="java.lang.Integer">
     select count(*)
     from
     <include refid="Base_Table_Name" />

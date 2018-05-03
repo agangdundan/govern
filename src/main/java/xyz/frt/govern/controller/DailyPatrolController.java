@@ -2,6 +2,7 @@ package xyz.frt.govern.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.frt.govern.common.JsonResult;
@@ -17,7 +18,7 @@ public class DailyPatrolController extends BaseController<DailyPatrol> {
     private DailyPatrolService dailyPatrolService;
 
     @Override
-    BaseService<DailyPatrol> getBaseService() {
+    BaseService<DailyPatrol> getService() {
         return dailyPatrolService;
     }
 
@@ -29,6 +30,11 @@ public class DailyPatrolController extends BaseController<DailyPatrol> {
     @GetMapping("/daily-patrols/{id}")
     public JsonResult findDailyPatrolByPrimaryKey(@PathVariable Integer id) {
         return findItemByPrimaryKey(id);
+    }
+
+    @PatchMapping("/daily-patrols/{id}")
+    public JsonResult updateDailyPatrolByPrimaryKey(@PathVariable Integer id, DailyPatrol dailyPatrol) {
+        return upgradeItemByPrimaryKey(id, dailyPatrol);
     }
 
 }

@@ -17,7 +17,7 @@ public class NewsController extends BaseController<News> {
     private NewsService newsService;
 
     @Override
-    BaseService<News> getBaseService() {
+    BaseService<News> getService() {
         return newsService;
     }
 

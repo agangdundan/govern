@@ -17,6 +17,7 @@ public class AppConst {
     public static final String KEY_TOKEN = "token";
     public static final String KEY_ID = "id";
     public static final String KEY_GOV = "govern";
+    public static final String KEY_PAGE_INFO = "page-info";
 
 
     public static final String redis_host = "localhost";
