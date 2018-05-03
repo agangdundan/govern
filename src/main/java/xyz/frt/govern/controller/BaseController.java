@@ -26,6 +26,10 @@ public abstract class BaseController<T extends BaseEntity> {
 
     abstract BaseService<T> getBaseService();
 
+    /**
+     * 查询所有记录列表
+     * @return 记录列表
+     */
     JsonResult findItems() {
         List<T> items = getBaseService().selectAll();
         if (BaseUtils.isNullOrEmpty(items)) {
@@ -36,6 +40,11 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
+    /**
+     * 查询分页记录
+     * @param info 分页信息
+     * @return 每页显示的记录
+     */
     JsonResult findItems(PageInfo info) {
         if (BaseUtils.isNullOrEmpty(info.getPage()) || BaseUtils.isNullOrEmpty(info.getLimit())) {
             return JsonResult.error("Get params error");
@@ -46,6 +55,11 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
+    /**
+     * 根据主键查找记录
+     * @param id 主键
+     * @return 记录
+     */
     JsonResult findItemByPrimaryKey(Integer id) {
         T item = getBaseService().selectByPrimaryKey(id);
         if (BaseUtils.isNullOrEmpty(item)) {
@@ -56,6 +70,11 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
+    /**
+     * 根据主键更新非空的记录
+     * @param item 包含id的记录
+     * @return 更新后的记录
+     */
     JsonResult updateItemByPrimaryKey(T item) {
         item = getBaseService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
@@ -66,6 +85,11 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
+    /**
+     * 批量上传文件
+     * @param req 请求
+     * @return 服务器文件地址列表
+     */
     JsonResult filesUpload(ServletRequest req) {
         MultipartHttpServletRequest multiReq = (MultipartHttpServletRequest) req;
         String[] filesPath = getBaseService().filesUpload(req.getServletContext().getRealPath("/upload"), multiReq.getFiles("file"));
@@ -79,6 +103,12 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Success", dataMap);
     }
 
+    /**
+     * 上传文件
+     * @param req 请求
+     * @param file 文件
+     * @return 文件服务器地址
+     */
     JsonResult fileUpload(ServletRequest req, MultipartFile file) {
         if (BaseUtils.isNullOrEmpty(file)) {
             return JsonResult.error("File upload error");
