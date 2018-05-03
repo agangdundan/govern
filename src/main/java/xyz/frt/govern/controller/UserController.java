@@ -63,8 +63,8 @@ public class UserController extends BaseController<User> {
     }
 
     @GetMapping("/users")
-    public JsonResult findUsers(User user) {
-        return findItemsByConditions(user);
+    public JsonResult findUsers() {
+        return findItems();
     }
 
 }

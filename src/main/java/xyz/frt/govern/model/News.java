@@ -6,8 +6,6 @@ public class News extends BaseEntity {
 
     private String pic;
 
-    private String creator;
-
     private String content;
 
     public String getTitle() {
@@ -24,14 +22,6 @@ public class News extends BaseEntity {
 
     public void setPic(String pic) {
         this.pic = pic == null ? null : pic.trim();
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
     }
 
     public String getContent() {

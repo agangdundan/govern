@@ -1,5 +1,9 @@
 package xyz.frt.govern.controller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +32,9 @@ public class NewsController extends BaseController<News> {
     }
 
     @GetMapping("/news/{id}")
+    @RequiresPermissions("user:add")
     public JsonResult findNewsByPrimaryKey(@PathVariable Integer id) {
+        SecurityUtils.getSubject().hasRole("admin");
        return findItemByPrimaryKey(id);
     }
 

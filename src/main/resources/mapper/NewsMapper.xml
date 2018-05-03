@@ -1,29 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.frt.govern.dao.NewsMapper">
-  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.News">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="pic" jdbcType="VARCHAR" property="pic" />
-    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
-    <result column="creator" jdbcType="VARCHAR" property="creator" />
-    <result column="create_time" jdbcType="INTEGER" property="createTime" />
-    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.frt.govern.dao.NewsMapper" >
+  <resultMap id="BaseResultMap" type="xyz.frt.govern.model.News" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="xyz.frt.govern.model.News">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, title, pic, creator_id, creator, create_time, is_enable, remark
+
+  <sql id="Base_Column_List" >
+    id, title, pic, creator_id, creator, create_time, is_enable, remark, content
   </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <sql id="Base_Table_Name">
-    gov_news
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -31,11 +25,11 @@
     from gov_news
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from gov_news
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.frt.govern.model.News">
+  <insert id="insert" parameterType="xyz.frt.govern.model.News" >
     insert into gov_news (id, title, pic, 
       creator_id, creator, create_time, 
       is_enable, remark, content
@@ -45,98 +39,98 @@
       #{isEnable,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.frt.govern.model.News">
+  <insert id="insertSelective" parameterType="xyz.frt.govern.model.News" >
     insert into gov_news
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         title,
       </if>
-      <if test="pic != null">
+      <if test="pic != null" >
         pic,
       </if>
-      <if test="creatorId != null">
+      <if test="creatorId != null" >
         creator_id,
       </if>
-      <if test="creator != null">
+      <if test="creator != null" >
         creator,
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time,
       </if>
-      <if test="isEnable != null">
+      <if test="isEnable != null" >
         is_enable,
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         remark,
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         content,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="pic != null">
+      <if test="pic != null" >
         #{pic,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null">
+      <if test="creatorId != null" >
         #{creatorId,jdbcType=INTEGER},
       </if>
-      <if test="creator != null">
+      <if test="creator != null" >
         #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="isEnable != null">
+      <if test="isEnable != null" >
         #{isEnable,jdbcType=INTEGER},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.News">
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.frt.govern.model.News" >
     update gov_news
-    <set>
-      <if test="title != null">
+    <set >
+      <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="pic != null">
+      <if test="pic != null" >
         pic = #{pic,jdbcType=VARCHAR},
       </if>
-      <if test="creatorId != null">
+      <if test="creatorId != null" >
         creator_id = #{creatorId,jdbcType=INTEGER},
       </if>
-      <if test="creator != null">
+      <if test="creator != null" >
         creator = #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="isEnable != null">
+      <if test="isEnable != null" >
         is_enable = #{isEnable,jdbcType=INTEGER},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.frt.govern.model.News">
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.News" >
     update gov_news
     set title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
@@ -148,7 +142,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.News">
+  <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.News" >
     update gov_news
     set title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
@@ -159,63 +153,4 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-  <!-- Customer SQL Statement -->
-  <select id="selectByConditions" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from
-    <include refid="Base_Table_Name" />
-    where
-    <foreach collection="map" index="key" item="value" separator="and">
-      ${key} = #{value}
-    </foreach>
-  </select>
-
-  <select id="selectByConditionsOrderBy" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from
-    <include refid="Base_Table_Name" />
-    where
-    <foreach collection="map" index="key" item="value" separator="and">
-      ${key} = #{value}
-    </foreach>
-    <if test="orderBy != null">
-      order by #{orderBy}
-    </if>
-  </select>
-
-  <select id="selectAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from
-    <include refid="Base_Table_Name" />
-  </select>
-
-  <select id="selectAllOrderBy" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from
-    <include refid="Base_Table_Name" />
-    <if test="orderBy != null">
-      order by #{orderBy}
-    </if>
-  </select>
-
-  <select id="selectCount" resultType="java.lang.Integer">
-    select count(*)
-    from
-    <include refid="Base_Table_Name"/>
-  </select>
-
-  <select id="selectCountByConditions" resultType="java.lang.Integer">
-    select count(*)
-    from
-    <include refid="Base_Table_Name" />
-    where
-    <foreach collection="map" item="value" index="key" separator="and">
-      ${key} = #{value}
-    </foreach>
-  </select>
 </mapper>
