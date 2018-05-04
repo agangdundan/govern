@@ -61,7 +61,7 @@ public abstract class BaseController<T extends BaseEntity> {
      * @param item 包含id的记录
      * @return 更新后的记录
      */
-    JsonResult updateItemByPrimaryKey(T item) { 
+    JsonResult updateItemByPrimaryKey(T item) {
         item = getService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
             return JsonResult.error("Upgrade error");
