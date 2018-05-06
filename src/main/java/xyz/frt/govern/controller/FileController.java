@@ -47,4 +47,9 @@ public class FileController extends BaseController<File> {
         dataMap.put(AppConst.KEY_DATA, file);
         return JsonResult.success("OK", dataMap);
     }
+
+    @GetMapping("/files/{id}")
+    public JsonResult fineFileByPrimaryKey(@PathVariable Integer id) {
+        return findItemByPrimaryKey(id);
+    }
 }
