@@ -58,26 +58,19 @@ public class JWTFilter extends AccessControlFilter {
         return true;
     }
 
-    /**
-     * 对跨域提供支持
-     * @param request req
-     * @param response res
-     * @return Boolean
-     * @throws Exception ex
-     */
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
-        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,PATCH,DELETE");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        res.setHeader("Access-control-Allow-Origin", req.getHeader("Origin"));
+        res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,PATCH,DELETE");
+        res.setHeader("Access-Control-Allow-Headers", req.getHeader("Access-Control-Request-Headers"));
         // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
-        if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
-            httpServletResponse.setStatus(HttpStatus.OK.value());
+        if (req.getMethod().equals(RequestMethod.OPTIONS.name())) {
+            res.setStatus(HttpStatus.OK.value());
             return false;
         }
-        return super.preHandle(request, response);
+        return true;
     }
 
     private void out(ServletResponse res, String content) {

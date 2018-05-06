@@ -1,5 +1,6 @@
 package xyz.frt.govern.config;
 
+import xyz.frt.govern.common.CorsFilter;
 import xyz.frt.govern.common.JWTFilter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
@@ -48,6 +49,7 @@ public class ShiroConfig {
 
         //添加自己的过滤器并取名jwt
         Map<String, Filter> filterMap = new HashMap<>();
+        filterMap.put("cors", new CorsFilter());
         filterMap.put("jwt", new JWTFilter());
         filterFactoryBean.setFilters(filterMap);
         filterFactoryBean.setSecurityManager(securityManager);
