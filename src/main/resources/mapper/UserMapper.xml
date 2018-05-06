@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="xyz.frt.govern.model.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="header" jdbcType="VARCHAR" property="header" />
     <result column="true_name" jdbcType="VARCHAR" property="trueName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
@@ -14,7 +15,7 @@
     <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, true_name, password, salt, phone, is_enable, remark, creator, creator_id
+    id, username, header, true_name, password, salt, phone, is_enable, remark, creator, creator_id
   </sql>
   <sql id="Base_Table_Name">
     sys_user
@@ -48,6 +49,9 @@
       <if test="username != null">
         username,
       </if>
+      <if test="header != null">
+        header,
+      </if>
       <if test="trueName != null">
         true_name,
       </if>
@@ -79,6 +83,9 @@
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        #{header,jdbcType=VARCHAR},
       </if>
       <if test="trueName != null">
         #{trueName,jdbcType=VARCHAR},
@@ -112,6 +119,9 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
+      <if test="header != null">
+        header,
+      </if>
       <if test="trueName != null">
         true_name = #{trueName,jdbcType=VARCHAR},
       </if>
@@ -142,6 +152,7 @@
   <update id="updateByPrimaryKey" parameterType="xyz.frt.govern.model.User">
     update sys_user
     set username = #{username,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
       true_name = #{trueName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},

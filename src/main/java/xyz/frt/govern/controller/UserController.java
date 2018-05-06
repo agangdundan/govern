@@ -10,6 +10,8 @@ import xyz.frt.govern.service.BaseService;
 import xyz.frt.govern.service.UserService;
 
 import javax.servlet.ServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author phw
@@ -65,6 +67,13 @@ public class UserController extends BaseController<User> {
     @GetMapping("/users")
     public JsonResult findUsers() {
         return findItems();
+    }
+
+    @GetMapping("/sms")
+    public JsonResult SmsCode() {
+        Map<String, Object> map = new HashMap<>();
+        map.put(AppConst.KEY_DATA, "4gst");
+        return JsonResult.success("OK", map);
     }
 
 }

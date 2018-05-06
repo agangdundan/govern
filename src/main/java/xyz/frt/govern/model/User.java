@@ -4,6 +4,8 @@ public class User extends BaseEntity {
 
     private String username;
 
+    private String header;
+
     private String trueName;
 
     private String password;
@@ -18,6 +20,14 @@ public class User extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public String getTrueName() {
