@@ -5,10 +5,13 @@ import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -51,6 +54,21 @@ public class JWTFilter extends AccessControlFilter {
             SecurityUtils.getSubject().login(token);
         } catch (AuthenticationException ae) {
             ae.printStackTrace();
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        res.setHeader("Access-control-Allow-Origin", req.getHeader("Origin"));
+        res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,PATCH,DELETE");
+        res.setHeader("Access-Control-Allow-Headers", req.getHeader("Access-Control-Request-Headers"));
+        // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
+        if (req.getMethod().equals(RequestMethod.OPTIONS.name())) {
+            res.setStatus(HttpStatus.OK.value());
+            return false;
         }
         return true;
     }
