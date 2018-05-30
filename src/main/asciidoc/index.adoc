@@ -1,0 +1,59 @@
+= 综治项目接口文档==
+
+综治项目接口文档
+
+== 403 ==
+
+.Request
+include::{snippets}/403/http-request.adoc[]
+include::{snippets}/403/curl-request.adoc[]
+include::{snippets}/403/httpie-request.adoc[]
+include::{snippets}/403/request-body.adoc[]
+.Response
+include::{snippets}/403/http-response.adoc[]
+include::{snippets}/403/response-body.adoc[]
+
+== 401 ==
+
+.Request
+include::{snippets}/401/http-request.adoc[]
+include::{snippets}/401/curl-request.adoc[]
+include::{snippets}/401/httpie-request.adoc[]
+include::{snippets}/401/request-body.adoc[]
+.Response
+include::{snippets}/401/http-response.adoc[]
+include::{snippets}/401/response-body.adoc[]
+
+== home ==
+
+.Request
+include::{snippets}/home/http-request.adoc[]
+include::{snippets}/home/curl-request.adoc[]
+include::{snippets}/home/httpie-request.adoc[]
+include::{snippets}/home/request-body.adoc[]
+.Response
+include::{snippets}/home/http-response.adoc[]
+include::{snippets}/home/response-body.adoc[]
+
+== sign-up ==
+
+.Request
+include::{snippets}/sign-up/http-request.adoc[]
+include::{snippets}/sign-up/curl-request.adoc[]
+include::{snippets}/sign-up/httpie-request.adoc[]
+include::{snippets}/sign-up/request-body.adoc[]
+.Response
+include::{snippets}/sign-up/http-response.adoc[]
+include::{snippets}/sign-up/response-body.adoc[]
+
+== 404 ==
+
+.Request
+include::{snippets}/404/http-request.adoc[]
+include::{snippets}/404/curl-request.adoc[]
+include::{snippets}/404/httpie-request.adoc[]
+include::{snippets}/404/request-body.adoc[]
+.Response
+include::{snippets}/404/http-response.adoc[]
+include::{snippets}/404/response-body.adoc[]
+
