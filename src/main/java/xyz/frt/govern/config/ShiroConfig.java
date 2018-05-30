@@ -55,13 +55,15 @@ public class ShiroConfig {
 
         //自定义url规则
         Map<String, String> filterRuleMap = new HashMap<>();
-        // 所有请求通过自己的JWT Filter
-        filterRuleMap.put("/**", "jwt");
         // 访问401和404页面不通过我们的Filter
+        filterRuleMap.put("/", "anon");
         filterRuleMap.put("/401", "anon");
+        filterRuleMap.put("/403", "anon");
         filterRuleMap.put("/404", "anon");
         filterRuleMap.put("/sign-in", "anon");
         filterRuleMap.put("/sign-up", "anon");
+        // 所有请求通过自己的JWT Filter
+        filterRuleMap.put("/**", "jwt");
         filterFactoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return filterFactoryBean;
     }
