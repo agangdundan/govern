@@ -1,59 +1,51 @@
-= 综治项目接口文档==
+= 综治项目接口文档
+:toc: left
 
 综治项目接口文档
 
-== 403 ==
+== Home
 
-.Request
-include::{snippets}/403/http-request.adoc[]
-include::{snippets}/403/curl-request.adoc[]
-include::{snippets}/403/httpie-request.adoc[]
-include::{snippets}/403/request-body.adoc[]
-.Response
-include::{snippets}/403/http-response.adoc[]
-include::{snippets}/403/response-body.adoc[]
+=== 401
 
-== 401 ==
+.Http Request
+include::{snippets}/Home/401/http-request.adoc[]
+.Http Response
+include::{snippets}/Home/401/http-response.adoc[]
+=== 404
 
-.Request
-include::{snippets}/401/http-request.adoc[]
-include::{snippets}/401/curl-request.adoc[]
-include::{snippets}/401/httpie-request.adoc[]
-include::{snippets}/401/request-body.adoc[]
-.Response
-include::{snippets}/401/http-response.adoc[]
-include::{snippets}/401/response-body.adoc[]
+.Http Request
+include::{snippets}/Home/404/http-request.adoc[]
+.Http Response
+include::{snippets}/Home/404/http-response.adoc[]
+=== home
 
-== home ==
+.Http Request
+include::{snippets}/Home/home/http-request.adoc[]
+.Http Response
+include::{snippets}/Home/home/http-response.adoc[]
+=== 403
 
-.Request
-include::{snippets}/home/http-request.adoc[]
-include::{snippets}/home/curl-request.adoc[]
-include::{snippets}/home/httpie-request.adoc[]
-include::{snippets}/home/request-body.adoc[]
-.Response
-include::{snippets}/home/http-response.adoc[]
-include::{snippets}/home/response-body.adoc[]
+.Http Request
+include::{snippets}/Home/403/http-request.adoc[]
+.Http Response
+include::{snippets}/Home/403/http-response.adoc[]
+== 用户模块
 
-== sign-up ==
+=== 获取所有用户
 
-.Request
-include::{snippets}/sign-up/http-request.adoc[]
-include::{snippets}/sign-up/curl-request.adoc[]
-include::{snippets}/sign-up/httpie-request.adoc[]
-include::{snippets}/sign-up/request-body.adoc[]
-.Response
-include::{snippets}/sign-up/http-response.adoc[]
-include::{snippets}/sign-up/response-body.adoc[]
+.Request Header
+include::{snippets}/用户模块/获取所有用户/request-headers.adoc[]
+.Http Request
+include::{snippets}/用户模块/获取所有用户/http-request.adoc[]
+.Http Response
+include::{snippets}/用户模块/获取所有用户/http-response.adoc[]
+=== 用户注册
 
-== 404 ==
-
-.Request
-include::{snippets}/404/http-request.adoc[]
-include::{snippets}/404/curl-request.adoc[]
-include::{snippets}/404/httpie-request.adoc[]
-include::{snippets}/404/request-body.adoc[]
-.Response
-include::{snippets}/404/http-response.adoc[]
-include::{snippets}/404/response-body.adoc[]
-
+.Request Parameters
+include::{snippets}/用户模块/用户注册/request-parameters.adoc[]
+.Response Fields
+include::{snippets}/用户模块/用户注册/response-fields.adoc[]
+.Http Request
+include::{snippets}/用户模块/用户注册/http-request.adoc[]
+.Http Response
+include::{snippets}/用户模块/用户注册/http-response.adoc[]

@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
     </properties>
 
     <dependencies>
@@ -133,10 +134,22 @@
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
+            <!-- Asciidoc Plugins -->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
                 <version>1.5.3</version>
+                <configuration>
+                    <attributes>
+                        <doctype>book</doctype>
+                        <toc>left</toc>
+                        <toclevels>3</toclevels>
+                        <numbered/>
+                        <hardbreaks/>
+                        <sectlinks/>
+                        <sectanchors/>
+                    </attributes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
@@ -145,12 +158,22 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
-                            <sourceDocumentName>index.adoc</sourceDocumentName>
-                            <backend>html</backend>
+                            <backend>html5</backend>
                             <attributes>
-                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                                <snippets>${snippetsDirectory}</snippets>
                             </attributes>
-                            <doctype>book</doctype>
+                            <sourceDirectory>src/main/asciidoc</sourceDirectory>
+                            <outputDirectory>target/generated-docs</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>output-html</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html5</backend>
                         </configuration>
                     </execution>
                 </executions>
@@ -164,6 +187,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

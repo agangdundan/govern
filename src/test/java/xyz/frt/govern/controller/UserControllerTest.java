@@ -5,8 +5,12 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import xyz.frt.govern.GovernApplicationTests;
+import xyz.frt.govern.common.AppConst;
 
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -15,6 +19,8 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserControllerTest extends GovernApplicationTests {
+
+    private static final String MODULE = "用户模块/";
 
     private MockMvc mockMvc;
 
@@ -40,7 +46,7 @@ public class UserControllerTest extends GovernApplicationTests {
                 .param("code", "font")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("sign-up",
+                .andDo(document(MODULE + "用户注册",
 
                         requestParameters(
                                 parameterWithName("username").description("用户名，必须"),
@@ -49,10 +55,11 @@ public class UserControllerTest extends GovernApplicationTests {
                                 parameterWithName("code").description("验证码")
                         ),
                         responseFields(
-                                fieldWithPath("code").description("200:成功, 401:认证失败, 403:拒绝访问, 404:请求不存在"),
+                                fieldWithPath("code").description("200:成功; 401:认证失败; 403:拒绝访问; 404:请求不存在; 500:服务端出错;"),
                                 fieldWithPath("msg").description("响应消息"),
                                 fieldWithPath("dataMap").description("响应数据集")
-                        )));
+                        ))
+                );
 
 
     }
@@ -74,7 +81,17 @@ public class UserControllerTest extends GovernApplicationTests {
     }
 
     @Test
-    public void findUsers1() {
+    public void findAllUsers() throws Exception {
+        mockMvc.perform(get("/users").header(
+                AppConst.KEY_AUTHORIZATION, TOKEN
+        )
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(document(MODULE + "获取所有用户",
+                        requestHeaders(
+                                headerWithName(AppConst.KEY_AUTHORIZATION).description("用户认证token")
+                        )
+                ));
     }
 
     @Test

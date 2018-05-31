@@ -1,9 +1,9 @@
 package xyz.frt.govern;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import xyz.frt.govern.common.BaseUtils;
 
 import java.io.*;
 
@@ -36,12 +36,17 @@ public class ApiDocumentGenerator {
             "request-body.adoc",
             "http-parameters.adoc",
             "response-body.adoc",
-            "response-fields.adoc"
+            "response-fields.adoc",
+            "request-headers.adoc"
     };
     /**
      * 请求概要
      */
     private static final String HTTP_REQUEST_ADOC = "http-request.adoc";
+    /**
+     * 请求响应
+     */
+    private static final String HTTP_RESPONSE_ADOC = "http-response.adoc";
     /**
      * 请求体
      */
@@ -58,31 +63,77 @@ public class ApiDocumentGenerator {
      * 响应参数说明
      */
     private static final String RESPONSE_FIELDS_ADOC = "response-fields.adoc";
+    /**
+     * 请求头参数说明
+     */
+    private static final String REQUEST_HEADERS_ADOC = "request-headers.adoc";
 
-    //@Test
+    @Test
     public void generateDocuments() throws IOException {
         File adocDirFile = new File(baseDir + adocDir);
-        File[] dirs = adocDirFile.listFiles();
-        if (BaseUtils.isNullOrEmpty(dirs)) {
-            return;
-        }
 
         String docTitle = "综治项目接口文档";
         String docNote = "综治项目接口文档";
 
         StringBuilder content = new StringBuilder();
-        content.append("= ").append(docTitle).append( "==")
-                .append("\n\n").append(docNote).append("\n\n");
-        for (File dir: dirs) {
-            content.append("== ").append(dir.getName()).append(" ==").append("\n\n");
-            content.append(".Request\n");
-            content.append("include::{snippets}/").append(dir.getName()).append("/").append("http-request.adoc[]\n");
-            //content.append("include::{snippets}/").append(dir.getName()).append("/").append("curl-request.adoc[]\n");
-            //content.append("include::{snippets}/").append(dir.getName()).append("/").append("httpie-request.adoc[]\n");
-            content.append("include::{snippets}/").append(dir.getName()).append("/").append("request-body.adoc[]\n");
-            content.append(".Response\n");
-            content.append("include::{snippets}/").append(dir.getName()).append("/").append("http-response.adoc[]\n");
-            content.append("include::{snippets}/").append(dir.getName()).append("/").append("response-body.adoc[]\n\n");
+        content.append("= ").append(docTitle)
+                .append("\n")
+                .append(":toc: left")
+                .append("\n\n")
+                .append(docNote)
+                .append("\n\n");
+        for (File dir : adocDirFile.listFiles()) {//遍历模块目录
+            System.out.println("/" + dir.getName());
+            content.append("== ").append(dir.getName()).append("\n\n");
+            for (File dir1 : dir.listFiles()) {//遍历Api目录
+                System.out.println("/" + dir.getName() + "/" + dir1.getName());
+                content.append("=== ").append(dir1.getName()).append("\n\n");
+                File[] files = dir1.listFiles();
+                for (File adoc : files) {//遍历adoc文件
+                    String adocFilePath = "/" + dir.getName() + "/" + dir1.getName() + "/" + adoc.getName();
+                    System.out.println(adocFilePath);
+                    if (adoc.getName().equals(REQUEST_HEADERS_ADOC)) {
+                        content.append(".Request Header").append("\n");
+                        content.append("include::{snippets}/")
+                                .append(dir.getName())
+                                .append("/").append(dir1.getName())
+                                .append("/").append(adoc.getName())
+                                .append("[]\n");
+                    }
+                    if (adoc.getName().equals(HTTP_REQUEST_ADOC)) {
+                        content.append(".Http Request").append("\n");
+                        content.append("include::{snippets}/")
+                                .append(dir.getName())
+                                .append("/").append(dir1.getName())
+                                .append("/").append(adoc.getName())
+                                .append("[]\n");
+                    }
+                    if (adoc.getName().equals(REQUEST_PARAMETERS_ADOC)) {
+                        content.append(".Request Parameters").append("\n");
+                        content.append("include::{snippets}/")
+                                .append(dir.getName())
+                                .append("/").append(dir1.getName())
+                                .append("/").append(adoc.getName())
+                                .append("[]\n");
+                    }
+                    if (adoc.getName().equals(HTTP_RESPONSE_ADOC)) {
+                        content.append(".Http Response").append("\n");
+                        content.append("include::{snippets}/")
+                                .append(dir.getName())
+                                .append("/").append(dir1.getName())
+                                .append("/").append(adoc.getName())
+                                .append("[]\n");
+                    }
+                    if (adoc.getName().equals(RESPONSE_FIELDS_ADOC)) {
+                        content.append(".Response Fields").append("\n");
+                        content.append("include::{snippets}/")
+                                .append(dir.getName())
+                                .append("/").append(dir1.getName())
+                                .append("/").append(adoc.getName())
+                                .append("[]\n");
+                    }
+                }
+            }
         }
 
         File indexAdocFile = new File(baseDir + adocPath);
@@ -97,5 +148,6 @@ public class ApiDocumentGenerator {
         writer.close();
         System.out.println("Document Generator Successful!");
     }
+
 
 }

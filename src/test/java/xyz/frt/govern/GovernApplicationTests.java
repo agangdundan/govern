@@ -21,11 +21,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GovernApplicationTests {
+
     @Rule
     public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
 
     @Autowired
     protected WebApplicationContext context;
+
+    private static final String MODULE = "Home/";
+
+    protected static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ4eXouZnJ0IiwiaWF0IjoxNTI3NzUxMTI0LCJleHAiOjE1Mjc3NTQ3MjQsInVzZXJuYW1lIjoiYWRtaW4iLCJpZCI6IjEifQ.uMWaw7019hUdr9Ira35HFyiHEB3Cs_RPHhV_TOOGIIg";
 
     private MockMvc mockMvc;
 
@@ -45,7 +50,7 @@ public class GovernApplicationTests {
         mockMvc.perform(get("/")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("home"));
+                .andDo(document(MODULE + "home"));
     }
 
     @Test
@@ -53,7 +58,7 @@ public class GovernApplicationTests {
         mockMvc.perform(get("/401")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("401"));
+                .andDo(document(MODULE + "401"));
     }
 
     @Test
@@ -61,7 +66,7 @@ public class GovernApplicationTests {
         mockMvc.perform(get("/403")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("403"));
+                .andDo(document(MODULE + "403"));
     }
 
     @Test
@@ -69,7 +74,7 @@ public class GovernApplicationTests {
         mockMvc.perform(get("/404")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("404"));
+                .andDo(document(MODULE + "404"));
     }
 
 }
