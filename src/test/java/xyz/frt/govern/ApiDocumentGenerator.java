@@ -1,9 +1,14 @@
 package xyz.frt.govern;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.*;
 
@@ -15,6 +20,9 @@ import java.io.*;
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ApiDocumentGenerator {
+
+    @Autowired
+    private WebApplicationContext context;
 
     /**
      * 项目路径
@@ -28,6 +36,14 @@ public class ApiDocumentGenerator {
      * 生成的snippets文件路径
      */
     private static final String adocDir = "/target/generated-snippets";
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void init() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
+
     private static final String[] adocPreFiles = {
             "curl.request.adoc",
             "http-request.adoc",
@@ -73,13 +89,14 @@ public class ApiDocumentGenerator {
         File adocDirFile = new File(baseDir + adocDir);
 
         String docTitle = "综治项目接口文档";
-        String docNote = "综治项目接口文档";
+        String docNote = "此文档中，若无特殊说明，所有接口遵循以下规则：\n " +
+                "1.请求状态码含义与Http协议中的含义一致;\n " +
+                "2.所有请求参数若无特殊说明均不能为空;\n " +
+                "3.文档请求说明中的几个部分可能会出现不按顺序排列，但不影响阅读;";
 
         StringBuilder content = new StringBuilder();
         content.append("= ").append(docTitle)
-                .append("\n")
-                .append(":toc: left")
-                .append("\n\n")
+                .append("\n\n ")
                 .append(docNote)
                 .append("\n\n");
         for (File dir : adocDirFile.listFiles()) {//遍历模块目录
@@ -93,7 +110,7 @@ public class ApiDocumentGenerator {
                     String adocFilePath = "/" + dir.getName() + "/" + dir1.getName() + "/" + adoc.getName();
                     System.out.println(adocFilePath);
                     if (adoc.getName().equals(REQUEST_HEADERS_ADOC)) {
-                        content.append(".Request Header").append("\n");
+                        content.append(".请求头").append("\n");
                         content.append("include::{snippets}/")
                                 .append(dir.getName())
                                 .append("/").append(dir1.getName())
@@ -101,7 +118,7 @@ public class ApiDocumentGenerator {
                                 .append("[]\n");
                     }
                     if (adoc.getName().equals(HTTP_REQUEST_ADOC)) {
-                        content.append(".Http Request").append("\n");
+                        content.append(".请求概要").append("\n");
                         content.append("include::{snippets}/")
                                 .append(dir.getName())
                                 .append("/").append(dir1.getName())
@@ -109,7 +126,7 @@ public class ApiDocumentGenerator {
                                 .append("[]\n");
                     }
                     if (adoc.getName().equals(REQUEST_PARAMETERS_ADOC)) {
-                        content.append(".Request Parameters").append("\n");
+                        content.append(".请求参数").append("\n");
                         content.append("include::{snippets}/")
                                 .append(dir.getName())
                                 .append("/").append(dir1.getName())
@@ -117,7 +134,7 @@ public class ApiDocumentGenerator {
                                 .append("[]\n");
                     }
                     if (adoc.getName().equals(HTTP_RESPONSE_ADOC)) {
-                        content.append(".Http Response").append("\n");
+                        content.append(".请求响应").append("\n");
                         content.append("include::{snippets}/")
                                 .append(dir.getName())
                                 .append("/").append(dir1.getName())
@@ -125,7 +142,7 @@ public class ApiDocumentGenerator {
                                 .append("[]\n");
                     }
                     if (adoc.getName().equals(RESPONSE_FIELDS_ADOC)) {
-                        content.append(".Response Fields").append("\n");
+                        content.append(".响应参数").append("\n");
                         content.append("include::{snippets}/")
                                 .append(dir.getName())
                                 .append("/").append(dir1.getName())
@@ -148,6 +165,8 @@ public class ApiDocumentGenerator {
         writer.close();
         System.out.println("Document Generator Successful!");
     }
+
+
 
 
 }

@@ -1,51 +1,50 @@
 = 综治项目接口文档
-:toc: left
 
 综治项目接口文档
 
 == Home
 
-=== 401
-
-.Http Request
-include::{snippets}/Home/401/http-request.adoc[]
-.Http Response
-include::{snippets}/Home/401/http-response.adoc[]
-=== 404
-
-.Http Request
-include::{snippets}/Home/404/http-request.adoc[]
-.Http Response
-include::{snippets}/Home/404/http-response.adoc[]
-=== home
-
-.Http Request
-include::{snippets}/Home/home/http-request.adoc[]
-.Http Response
-include::{snippets}/Home/home/http-response.adoc[]
 === 403
 
-.Http Request
+.请求概要
 include::{snippets}/Home/403/http-request.adoc[]
-.Http Response
+.请求响应
 include::{snippets}/Home/403/http-response.adoc[]
+=== 401
+
+.请求概要
+include::{snippets}/Home/401/http-request.adoc[]
+.请求响应
+include::{snippets}/Home/401/http-response.adoc[]
+=== home
+
+.请求概要
+include::{snippets}/Home/home/http-request.adoc[]
+.请求响应
+include::{snippets}/Home/home/http-response.adoc[]
+=== 404
+
+.请求概要
+include::{snippets}/Home/404/http-request.adoc[]
+.请求响应
+include::{snippets}/Home/404/http-response.adoc[]
 == 用户模块
 
-=== 获取所有用户
-
-.Request Header
-include::{snippets}/用户模块/获取所有用户/request-headers.adoc[]
-.Http Request
-include::{snippets}/用户模块/获取所有用户/http-request.adoc[]
-.Http Response
-include::{snippets}/用户模块/获取所有用户/http-response.adoc[]
 === 用户注册
 
-.Request Parameters
-include::{snippets}/用户模块/用户注册/request-parameters.adoc[]
-.Response Fields
-include::{snippets}/用户模块/用户注册/response-fields.adoc[]
-.Http Request
+.请求概要
 include::{snippets}/用户模块/用户注册/http-request.adoc[]
-.Http Response
+.请求参数
+include::{snippets}/用户模块/用户注册/request-parameters.adoc[]
+.请求响应
 include::{snippets}/用户模块/用户注册/http-response.adoc[]
+.响应参数
+include::{snippets}/用户模块/用户注册/response-fields.adoc[]
+=== 获取所有用户
+
+.请求头
+include::{snippets}/用户模块/获取所有用户/request-headers.adoc[]
+.请求概要
+include::{snippets}/用户模块/获取所有用户/http-request.adoc[]
+.请求响应
+include::{snippets}/用户模块/获取所有用户/http-response.adoc[]
