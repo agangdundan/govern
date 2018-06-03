@@ -1,45 +1,38 @@
 = 综治项目接口文档
 
-综治项目接口文档
+ 此文档中，若无特殊说明，所有接口遵循以下规则:
+ 1.请求状态码含义与Http协议中的含义一致;
+ 2.所有请求参数若无特殊说明均不能为空;
+ 3.文档请求说明中的几个部分可能会出现不按顺序排列，但不影响阅读;
 
 == Home
 
-=== 403
-
-.请求概要
-include::{snippets}/Home/403/http-request.adoc[]
-.请求响应
-include::{snippets}/Home/403/http-response.adoc[]
 === 401
 
 .请求概要
 include::{snippets}/Home/401/http-request.adoc[]
 .请求响应
 include::{snippets}/Home/401/http-response.adoc[]
-=== home
-
-.请求概要
-include::{snippets}/Home/home/http-request.adoc[]
-.请求响应
-include::{snippets}/Home/home/http-response.adoc[]
 === 404
 
 .请求概要
 include::{snippets}/Home/404/http-request.adoc[]
 .请求响应
 include::{snippets}/Home/404/http-response.adoc[]
-== 用户模块
-
-=== 用户注册
+=== home
 
 .请求概要
-include::{snippets}/用户模块/用户注册/http-request.adoc[]
-.请求参数
-include::{snippets}/用户模块/用户注册/request-parameters.adoc[]
+include::{snippets}/Home/home/http-request.adoc[]
 .请求响应
-include::{snippets}/用户模块/用户注册/http-response.adoc[]
-.响应参数
-include::{snippets}/用户模块/用户注册/response-fields.adoc[]
+include::{snippets}/Home/home/http-response.adoc[]
+=== 403
+
+.请求概要
+include::{snippets}/Home/403/http-request.adoc[]
+.请求响应
+include::{snippets}/Home/403/http-response.adoc[]
+== 用户模块
+
 === 获取所有用户
 
 .请求头
@@ -48,3 +41,13 @@ include::{snippets}/用户模块/获取所有用户/request-headers.adoc[]
 include::{snippets}/用户模块/获取所有用户/http-request.adoc[]
 .请求响应
 include::{snippets}/用户模块/获取所有用户/http-response.adoc[]
+=== 用户注册
+
+.请求参数
+include::{snippets}/用户模块/用户注册/request-parameters.adoc[]
+.响应参数
+include::{snippets}/用户模块/用户注册/response-fields.adoc[]
+.请求概要
+include::{snippets}/用户模块/用户注册/http-request.adoc[]
+.请求响应
+include::{snippets}/用户模块/用户注册/http-response.adoc[]

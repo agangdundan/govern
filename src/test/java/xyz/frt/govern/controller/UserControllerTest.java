@@ -55,7 +55,7 @@ public class UserControllerTest extends GovernApplicationTests {
                                 parameterWithName("code").description("验证码")
                         ),
                         responseFields(
-                                fieldWithPath("code").description("200:成功; 401:认证失败; 403:拒绝访问; 404:请求不存在; 500:服务端出错;"),
+                                fieldWithPath("code").description("响应码"),
                                 fieldWithPath("msg").description("响应消息"),
                                 fieldWithPath("dataMap").description("响应数据集")
                         ))

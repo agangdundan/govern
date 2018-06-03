@@ -89,7 +89,7 @@ public class ApiDocumentGenerator {
         File adocDirFile = new File(baseDir + adocDir);
 
         String docTitle = "综治项目接口文档";
-        String docNote = "此文档中，若无特殊说明，所有接口遵循以下规则：\n " +
+        String docNote = "此文档中，若无特殊说明，所有接口遵循以下规则:\n " +
                 "1.请求状态码含义与Http协议中的含义一致;\n " +
                 "2.所有请求参数若无特殊说明均不能为空;\n " +
                 "3.文档请求说明中的几个部分可能会出现不按顺序排列，但不影响阅读;";
