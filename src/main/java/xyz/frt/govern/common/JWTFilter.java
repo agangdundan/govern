@@ -1,7 +1,7 @@
 package xyz.frt.govern.common;
 
-import com.alibaba.fastjson.JSON;
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.AccessControlFilter;
@@ -12,8 +12,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 /**
@@ -21,6 +19,7 @@ import java.util.Map;
  * @date Created in 04-09-2018
  * @description
  */
+@Slf4j
 public class JWTFilter extends AccessControlFilter {
 
     @Override
@@ -31,9 +30,11 @@ public class JWTFilter extends AccessControlFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse res = (HttpServletResponse) servletResponse;
         String requestToken = req.getHeader(AppConst.KEY_AUTHORIZATION);
         if (BaseUtils.isNullOrEmpty(requestToken)) {
-            out(servletResponse, JSON.toJSONString(JsonResult.error(401, "Token invalid, Try re-login.")));
+            log.error("Token invalid, Try re-login.");
+            res.sendRedirect("/401");
             return false;
         }
         //Verify token
@@ -42,10 +43,12 @@ public class JWTFilter extends AccessControlFilter {
             servletRequest.setAttribute(AppConst.KEY_ID, map.get(AppConst.KEY_ID));
             servletRequest.setAttribute(AppConst.KEY_USERNAME, map.get(AppConst.KEY_USERNAME));
         } catch (ExpiredJwtException e) {
-            out(servletResponse, JSON.toJSONString(JsonResult.error(401, "Token expired, Try re-login.")));
+            log.error("Token expired, Try re-login.");
+            res.sendRedirect("/401");
             return false;
         } catch (Exception e) {
-            out(servletResponse, JSON.toJSONString(JsonResult.error(401, "Invalid token, Please login first.")));
+            log.error("Invalid token, Please login first.");
+            res.sendRedirect("/401");
             return false;
         }
 
@@ -53,7 +56,8 @@ public class JWTFilter extends AccessControlFilter {
             JWTToken token = new JWTToken(requestToken, req.getRemoteHost());
             SecurityUtils.getSubject().login(token);
         } catch (AuthenticationException ae) {
-            ae.printStackTrace();
+            log.error(ae.getMessage());
+            res.sendRedirect("/401");
         }
         return true;
     }
@@ -73,15 +77,4 @@ public class JWTFilter extends AccessControlFilter {
         return true;
     }
 
-    private void out(ServletResponse res, String content) {
-        try {
-            PrintWriter out = res.getWriter();
-            res.setContentType("application/json; charset=utf-8");
-            out.println(content);
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

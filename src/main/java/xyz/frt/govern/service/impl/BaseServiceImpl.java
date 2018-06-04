@@ -76,6 +76,9 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
         if (BaseUtils.isNullOrEmpty(item)) {
             return null;
         }
+        if (BaseUtils.isNullOrEmpty(item.getId())) {
+            return null;
+        }
         if (getMapper().updateByPrimaryKeySelective(item) == 0) {
             return null;
         }

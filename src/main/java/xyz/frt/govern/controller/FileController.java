@@ -19,20 +19,26 @@ import java.util.HashMap;
 @RestController
 public class FileController extends BaseController<File> {
 
+    private final FileService fileService;
+
+    private static final String MODULE = "/files";
+
     @Autowired
-    private FileService fileService;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     @Override
     BaseService<File> getService() {
         return fileService;
     }
 
-    @PostMapping("/file/upload")
+    @PostMapping("/file")
     public JsonResult upload(ServletRequest req, MultipartFile file) {
         return fileUpload(req, file);
     }
 
-    @PostMapping("/files/upload")
+    @PostMapping("/files")
     public JsonResult upload(ServletRequest req) {
         return filesUpload(req);
     }

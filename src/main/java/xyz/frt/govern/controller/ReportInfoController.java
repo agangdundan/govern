@@ -1,11 +1,9 @@
 package xyz.frt.govern.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.frt.govern.common.JsonResult;
+import xyz.frt.govern.common.PageInfo;
 import xyz.frt.govern.model.ReportInfo;
 import xyz.frt.govern.service.BaseService;
 import xyz.frt.govern.service.ReportInfoService;
@@ -13,27 +11,58 @@ import xyz.frt.govern.service.ReportInfoService;
 @RestController
 public class ReportInfoController extends BaseController<ReportInfo> {
 
+    private final ReportInfoService reportInfoService;
+
+    private static final String MODULE = "/reports";
+
     @Autowired
-    private ReportInfoService reportInfoService;
+    public ReportInfoController(ReportInfoService reportInfoService) {
+        this.reportInfoService = reportInfoService;
+    }
 
     @Override
     BaseService<ReportInfo> getService() {
         return reportInfoService;
     }
 
-    @GetMapping("/report-info")
-    public JsonResult findReportInfo() {
+    @PostMapping(MODULE)
+    public JsonResult addArea(ReportInfo item) {
+        return addItem(item);
+    }
+
+    @DeleteMapping(MODULE + "/{id}")
+    public JsonResult removeArea(@PathVariable Integer id) {
+        return removeItemByPrimaryKey(id);
+    }
+
+    @PatchMapping(MODULE)
+    public JsonResult upgrade(ReportInfo item) {
+        return upgradeItemByPrimaryKey(item);
+    }
+
+    @GetMapping(MODULE + "/all")
+    public JsonResult findAll() {
         return findItems();
     }
 
-    @PostMapping("/report-info")
-    public JsonResult addReportInfo(ReportInfo reportInfo) {
-        return addItem(reportInfo);
+    @GetMapping(MODULE + "/{id}")
+    public JsonResult findByPrimaryKey(@PathVariable Integer id) {
+        return findItemByPrimaryKey(id);
     }
 
-    @GetMapping("/report-info/{id}")
-    public JsonResult findReportInfoByPrimaryKey(@PathVariable Integer id) {
-        return findItemByPrimaryKey(id);
+    @GetMapping(MODULE)
+    public JsonResult findByPage(PageInfo<ReportInfo> info) {
+        return findItems(info);
+    }
+
+    @GetMapping(MODULE + "/{key}/{value}")
+    public JsonResult findByCondition(@PathVariable String key, @PathVariable Object value) {
+        return findItemsByCondition(key, value);
+    }
+
+    @GetMapping(MODULE + "/conditions")
+    public JsonResult findByConditions(ReportInfo item) {
+        return findItemsByConditions(item);
     }
 
 

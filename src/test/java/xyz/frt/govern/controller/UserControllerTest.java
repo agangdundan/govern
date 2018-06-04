@@ -15,6 +15,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,11 +31,18 @@ public class UserControllerTest extends GovernApplicationTests {
     }
 
     @Test
-    public void findByPrimaryKey() {
-    }
-
-    @Test
-    public void signIn() {
+    public void findByPrimaryKey() throws Exception {
+        mockMvc.perform(get("/users/{id}", 1))
+                .andExpect(status().isOk())
+                .andDo(document(MODULE + "根据ID加载用户",
+                        pathParameters(
+                                parameterWithName(AppConst.KEY_ID).description("用户ID")),
+                        responseFields(
+                                fieldWithPath("code").description("响应码"),
+                                fieldWithPath("msg").description("响应消息"),
+                                fieldWithPath("dataMap").description("响应数据集")
+                        ))
+                );
     }
 
     @Test

@@ -71,11 +71,10 @@ public abstract class BaseController<T extends BaseEntity> {
         return JsonResult.success("Upgrade successful", dataMap);
     }
 
-    JsonResult upgradeItemByPrimaryKey(Integer id, T item) {
+    JsonResult upgradeItemByPrimaryKey(T item) {
         if (BaseUtils.isNullOrEmpty(item)) {
             return JsonResult.error("Get params error");
         }
-        item.setId(id);
         item = getService().updateByPrimaryKeySelective(item);
         if (BaseUtils.isNullOrEmpty(item)) {
             return JsonResult.error("Upgrade error");
@@ -138,6 +137,18 @@ public abstract class BaseController<T extends BaseEntity> {
         List<T> items = getService().selectByConditions(conditions);
         if (BaseUtils.isNullOrEmpty(items)) {
             return JsonResult.warn("Didn't have any item");
+        }
+        dataMap = new HashMap<>();
+        dataMap.put(AppConst.KEY_DATA, items);
+        return JsonResult.success("Success", dataMap);
+    }
+
+    JsonResult findItemsByCondition(String key, Object value) {
+        Map<String, Object> condition = new HashMap<>();
+        condition.put(key, value);
+        List<T> items = getService().selectByConditions(condition);
+        if (BaseUtils.isNullOrEmpty(items)) {
+            return JsonResult.error("There didn't have any record.");
         }
         dataMap = new HashMap<>();
         dataMap.put(AppConst.KEY_DATA, items);

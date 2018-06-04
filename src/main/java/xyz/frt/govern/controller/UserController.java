@@ -21,15 +21,21 @@ import java.util.Map;
 @RestController
 public class UserController extends BaseController<User> {
 
+    private final UserService userService;
+
+    private static final String MODULE = "/users";
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     BaseService<User> getService() {
         return userService;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping(MODULE + "/{id}")
     public JsonResult findByPrimaryKey(@PathVariable Integer id) {
         return findItemByPrimaryKey(id);
     }
@@ -49,22 +55,22 @@ public class UserController extends BaseController<User> {
         return userService.logout();
     }
 
-    @PostMapping("/edit-pass")
+    @PatchMapping("/edit-pass")
     public JsonResult updatePass(@RequestParam String oldPass, @RequestParam String newPass, ServletRequest req) {
         return userService.updatePass(oldPass, newPass, Integer.valueOf((String) req.getAttribute(AppConst.KEY_ID)));
     }
 
-    @PostMapping("/find-pass")
+    @PatchMapping("/find-pass")
     public JsonResult findPass(@RequestParam String code, User user) {
         return userService.findPass(user, code);
     }
 
-    @GetMapping("/users/page")
+    @GetMapping(MODULE)
     public JsonResult findUsers(PageInfo info) {
         return findItems(info);
     }
 
-    @GetMapping("/users")
+    @GetMapping(MODULE + "/all")
     public JsonResult findUsers() {
         return findItems();
     }

@@ -18,6 +18,11 @@ public class AppConst {
     public static final String KEY_ID = "id";
     public static final String KEY_GOV = "govern";
     public static final String KEY_PAGE_INFO = "page-info";
+    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_CODE = "code";
+    public static final String KEY_MSG = "msg";
+    public static final String KEY_DATA_MAP_DATA= "dataMap[].data";
+    public static final String VALUE_DOTE = ".";
 
 
     public static final String redis_host = "localhost";
@@ -25,4 +30,5 @@ public class AppConst {
     public static final Integer redis_timeout = 10000;
     public static final int redis_expire = 1800;
     public static final String redis_pwd = "199798";
+    public static final String KEY_DATA_MAP = "dataMap";
 }
