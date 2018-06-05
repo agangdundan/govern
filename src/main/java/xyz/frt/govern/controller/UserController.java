@@ -57,7 +57,7 @@ public class UserController extends BaseController<User> {
 
     @PatchMapping("/edit-pass")
     public JsonResult updatePass(@RequestParam String oldPass, @RequestParam String newPass, ServletRequest req) {
-        return userService.updatePass(oldPass, newPass, Integer.valueOf((String) req.getAttribute(AppConst.KEY_ID)));
+        return userService.updatePass(oldPass, newPass, (String) req.getAttribute(AppConst.KEY_ID));
     }
 
     @PatchMapping("/find-pass")

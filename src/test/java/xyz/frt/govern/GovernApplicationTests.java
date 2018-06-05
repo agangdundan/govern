@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -23,8 +24,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,10 +45,27 @@ public class GovernApplicationTests {
 
     private MockMvc mockMvc;
 
+    protected FieldDescriptor[] basic_json_desc = new FieldDescriptor[] {
+            fieldWithPath(AppConst.KEY_CODE).description("响应码"),
+            fieldWithPath(AppConst.KEY_MSG).description("响应消息"),
+            fieldWithPath(AppConst.KEY_DATA_MAP).description("响应数据集")
+    };
+
+    protected FieldDescriptor[] basic_entity_desc = new FieldDescriptor[]{
+            fieldWithPath("dataMap.data").description("相应数据")
+            ,fieldWithPath("dataMap.data.id").description("ID")
+            ,fieldWithPath("dataMap.data.creator").description("创建人")
+            ,fieldWithPath("dataMap.data.creatorId").description("创建人ID")
+            ,fieldWithPath("dataMap.data.createTime").description("创建时间")
+            ,fieldWithPath("dataMap.data.isEnable").description("是否启用")
+            ,fieldWithPath("dataMap.data.remark").description("备注")
+    };
+
     @Before
-    public void initializing() {
+    public void initializing() throws Exception {
         mockMvc = buildMockMvc(context);
         buildSecurityManager(context);
+        signIn();
     }
 
     protected MockMvc buildMockMvc(WebApplicationContext context) {
@@ -95,9 +112,7 @@ public class GovernApplicationTests {
                 .andExpect(status().isOk())
                 .andDo(document(MODULE + "home",
                         responseFields(
-                                fieldWithPath(AppConst.KEY_CODE).description("响应码"),
-                                fieldWithPath(AppConst.KEY_MSG).description("响应信息"),
-                                fieldWithPath(AppConst.KEY_DATA_MAP).description("响应数据集")
+                                basic_json_desc
                         )));
     }
 
@@ -108,9 +123,7 @@ public class GovernApplicationTests {
                 .andExpect(status().isOk())
                 .andDo(document(MODULE + "401",
                         responseFields(
-                                fieldWithPath(AppConst.KEY_CODE).description("响应码"),
-                                fieldWithPath(AppConst.KEY_MSG).description("响应信息"),
-                                fieldWithPath(AppConst.KEY_DATA_MAP).description("响应数据集")
+                                basic_json_desc
                         )));
     }
 
@@ -121,9 +134,7 @@ public class GovernApplicationTests {
                 .andExpect(status().isOk())
                 .andDo(document(MODULE + "403",
                         responseFields(
-                                fieldWithPath(AppConst.KEY_CODE).description("响应码"),
-                                fieldWithPath(AppConst.KEY_MSG).description("响应信息"),
-                                fieldWithPath(AppConst.KEY_DATA_MAP).description("响应数据集")
+                                basic_json_desc
                         )));
     }
 
@@ -134,9 +145,7 @@ public class GovernApplicationTests {
                 .andExpect(status().isOk())
                 .andDo(document(MODULE + "404",
                         responseFields(
-                                fieldWithPath(AppConst.KEY_CODE).description("响应码"),
-                                fieldWithPath(AppConst.KEY_MSG).description("响应信息"),
-                                fieldWithPath(AppConst.KEY_DATA_MAP).description("响应数据集")
+                                basic_json_desc
                         )));
     }
 

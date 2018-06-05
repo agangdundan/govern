@@ -2,9 +2,7 @@ package xyz.frt.govern.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author phw
@@ -65,4 +63,12 @@ public class BaseUtils {
         }
     }
 
+    @SafeVarargs
+    public static <T> List<T> mergeArrays(T[]... itemses) {
+        List<T> temp = new LinkedList<>();
+        for (T[] items: itemses) {
+            temp.addAll(Arrays.asList(items));
+        }
+        return temp;
+    }
 }

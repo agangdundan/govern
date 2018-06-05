@@ -127,11 +127,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public JsonResult updatePass(String oldPass, String newPass, Integer userId) {
-        if (BaseUtils.isNullOrEmpty(oldPass) || BaseUtils.isNullOrEmpty(newPass)) {
-            JsonResult.error("Get request params error");
+    public JsonResult updatePass(String oldPass, String newPass, String userId) {
+        if (BaseUtils.isNullOrEmpty(oldPass) || BaseUtils.isNullOrEmpty(newPass) || BaseUtils.isNullOrEmpty(userId)) {
+            return JsonResult.error("Get request params error");
         }
-        User user = getMapper().selectByPrimaryKey(userId);
+        User user = getMapper().selectByPrimaryKey(Integer.valueOf(userId));
         if (!(user.getPassword().equals(oldPass))) {
             return JsonResult.error("Password incorrect");
         }

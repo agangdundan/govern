@@ -18,7 +18,7 @@ public interface UserService extends BaseService<User> {
 
     JsonResult findPass(User user, String code);
 
-    JsonResult updatePass(String oldPass, String newPass, Integer userId);
+    JsonResult updatePass(String oldPass, String newPass, String userId);
 
     JsonResult logout();
 }
